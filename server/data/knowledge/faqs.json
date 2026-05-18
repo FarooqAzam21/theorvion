@@ -1,0 +1,74 @@
+{
+  "source": "faqs",
+  "title": "The Orvion Frequently Asked Questions",
+  "content": [
+    {
+      "section": "FAQ: How long does a typical project take?",
+      "text": "Project timelines vary based on scope. A landing page takes 3–7 days. A business website takes 2–4 weeks. A full web application or SaaS product takes 6–16 weeks. An AI chatbot takes 1–3 weeks. We always provide a detailed timeline in the project proposal and keep you updated throughout development."
+    },
+    {
+      "section": "FAQ: Do you work with startups?",
+      "text": "Absolutely! The Orvion loves working with startups. We understand the startup mindset — speed, lean budgets, and high ambition. We offer flexible packages and can work in rapid MVP development mode to get your product to market fast, then iterate based on user feedback."
+    },
+    {
+      "section": "FAQ: Do you sign NDAs?",
+      "text": "Yes. We are happy to sign Non-Disclosure Agreements (NDAs) before any project discussion. We take client confidentiality very seriously. All our team members also sign internal NDAs to protect your intellectual property."
+    },
+    {
+      "section": "FAQ: Who owns the code after delivery?",
+      "text": "You own 100% of the code, designs, and deliverables upon final payment. We hand over all source code, design files (Figma), and credentials. We don't retain any rights to your project. You are free to hire any developer to maintain it after delivery."
+    },
+    {
+      "section": "FAQ: Do you provide post-launch support?",
+      "text": "Yes. Every project comes with 30 days of free post-launch bug fixing and support. After that, we offer affordable monthly maintenance plans starting from $200/month. We're always available for emergency fixes for our clients."
+    },
+    {
+      "section": "FAQ: Can you work with my existing codebase?",
+      "text": "Yes. We frequently take over and improve existing projects. We'll conduct a code audit first to understand the architecture, identify technical debt, and then plan improvements. We're experienced with legacy code and can modernize, refactor, or extend existing systems."
+    },
+    {
+      "section": "FAQ: Do you build AI chatbots?",
+      "text": "Yes! AI chatbot development is one of our core specialties. We build RAG-based chatbots that learn from your company's own data, so they answer accurately without making things up. We also build customer support bots, sales assistant bots, WhatsApp bots, and internal knowledge base assistants."
+    },
+    {
+      "section": "FAQ: What AI technologies do you use?",
+      "text": "We work with OpenAI GPT-4 and GPT-4o, Google Gemini 1.5 Pro and Flash, Anthropic Claude, Meta LLaMA, Mistral, and other open-source LLMs. For embeddings and vector search, we use Pinecone, ChromaDB, Weaviate, and Supabase Vector. We choose the best model for each project's requirements and budget."
+    },
+    {
+      "section": "FAQ: How do you communicate during a project?",
+      "text": "We communicate through Slack or WhatsApp for real-time updates, weekly video calls via Google Meet or Zoom for progress reviews, and structured project management through Notion or Trello. You'll always know exactly where your project stands."
+    },
+    {
+      "section": "FAQ: Do you offer design services?",
+      "text": "Yes. UI/UX design is a core service at The Orvion. We offer everything from wireframing and user flow design to high-fidelity Figma prototypes and complete design systems. Our designers specialize in modern, premium interfaces for SaaS, e-commerce, and web apps."
+    },
+    {
+      "section": "FAQ: Can you integrate with my existing tools?",
+      "text": "Yes. We integrate with virtually any tool or platform. Common integrations include Stripe, PayPal, Shopify, WooCommerce, HubSpot, Salesforce, Mailchimp, SendGrid, Twilio, Firebase, Supabase, AWS, Google Analytics, Meta Pixel, Zapier, and hundreds more via REST APIs and webhooks."
+    },
+    {
+      "section": "FAQ: Do you build mobile apps?",
+      "text": "Yes. We build cross-platform mobile apps with React Native and Flutter. These frameworks let us deliver native-quality apps for both iOS and Android from a single codebase, significantly reducing development time and cost without sacrificing performance."
+    },
+    {
+      "section": "FAQ: What is your development process?",
+      "text": "Our process has 6 phases: (1) Discovery — understanding your goals, users, and requirements. (2) Strategy — defining scope, timeline, and tech stack. (3) Design — wireframes, prototypes, and visual design. (4) Development — agile sprints with regular demos. (5) QA & Testing — thorough quality assurance. (6) Launch & Support — deployment and ongoing support."
+    },
+    {
+      "section": "FAQ: How do I get started?",
+      "text": "Getting started is simple. Contact us via our website, WhatsApp, or email. We'll schedule a free 30-minute discovery call to understand your project. Within 2–3 business days, you'll receive a detailed proposal with scope, timeline, and pricing. Once approved, we kick off immediately."
+    },
+    {
+      "section": "FAQ: Do you work with international clients?",
+      "text": "Yes! The majority of our clients are international — primarily from the USA, UK, Canada, Australia, UAE, and Europe. We are fully remote and comfortable working across time zones. We schedule meetings at times convenient for our clients."
+    },
+    {
+      "section": "FAQ: What makes The Orvion different from other agencies?",
+      "text": "Three things set us apart: (1) Premium quality — we never cut corners. Every project is built to the highest standard. (2) AI-first mindset — we proactively suggest AI enhancements that most agencies overlook. (3) True partnership — we care about your business outcomes, not just deliverables. Many clients come to us after bad experiences elsewhere and become long-term partners."
+    },
+    {
+      "section": "FAQ: Do you offer a free consultation?",
+      "text": "Yes! We offer a completely free, no-obligation 30-minute consultation call. We'll listen to your ideas, provide expert advice, and give you honest recommendations — even if we're not the right fit. Book your free call through our contact page."
+    }
+  ]
+}

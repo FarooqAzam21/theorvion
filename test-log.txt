@@ -1,0 +1,11 @@
+--- DIAGNOSTIC TEST START ---
+Timestamp: 2026-05-15T14:47:38.408Z
+CWD: C:\Users\Farooq\Desktop\Orvion
+__dirname: C:\Users\Farooq\Desktop\Orvion\server
+GEMINI_API_KEY found. Length: 39
+Key starts with: AIzaSyB...
+Testing gemini-1.5-flash (Chat)...
+Chat FAILED {"status":404,"message":"[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."}
+Testing text-embedding-004 (Embeddings)...
+Embedding FAILED {"status":404,"message":"[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent: [404 Not Found] models/text-embedding-004 is not found for API version v1beta, or is not supported for embedContent. Call ListModels to see the list of available models and their supported methods."}
+--- DIAGNOSTIC TEST END ---

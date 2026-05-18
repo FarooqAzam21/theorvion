@@ -1,0 +1,46 @@
+{
+  "source": "pricing",
+  "title": "The Orvion Pricing",
+  "content": [
+    {
+      "section": "Pricing Philosophy",
+      "text": "The Orvion offers transparent, value-based pricing. We don't believe in one-size-fits-all packages because every project is unique. Our pricing reflects the quality, complexity, and business value of the work we deliver. We provide detailed proposals after a free consultation so you know exactly what you're getting."
+    },
+    {
+      "section": "Web Development Pricing",
+      "text": "Landing pages and portfolio websites typically start from $500–$1,500 depending on design complexity and features. Business websites with 5–10 pages start from $1,500–$3,000. Full-featured web applications and SaaS platforms range from $5,000–$25,000+ depending on features, integrations, and scale. All pricing includes design, development, testing, and deployment."
+    },
+    {
+      "section": "E-Commerce Pricing",
+      "text": "Basic e-commerce stores (Shopify or WooCommerce, up to 50 products) start from $1,500–$3,000. Mid-tier e-commerce with custom design, 100+ products, and integrations ranges from $3,000–$8,000. Custom headless e-commerce or multi-vendor marketplaces start from $10,000+. All e-commerce packages include payment gateway setup, mobile optimization, and basic SEO."
+    },
+    {
+      "section": "AI Chatbot Pricing",
+      "text": "A basic AI chatbot with predefined responses starts from $800–$1,500. A smart RAG-based AI chatbot trained on your company data, with conversation history and multi-channel support, starts from $2,500–$5,000. Enterprise-grade AI assistant systems with custom LLM fine-tuning and CRM integration start from $10,000+."
+    },
+    {
+      "section": "Mobile App Pricing",
+      "text": "React Native or Flutter mobile apps start from $5,000 for simple apps. Mid-complexity apps with custom backend, authentication, and 10–20 screens range from $8,000–$18,000. Complex apps with real-time features, payments, and advanced integrations start from $20,000+."
+    },
+    {
+      "section": "UI/UX Design Pricing",
+      "text": "Landing page design starts from $300–$600. Full product design (up to 10 screens) ranges from $800–$2,500. Comprehensive design systems and brand identity packages start from $2,000–$5,000."
+    },
+    {
+      "section": "Maintenance & Support",
+      "text": "Monthly maintenance packages start from $200/month for basic hosting support and minor updates. Full maintenance plans including performance monitoring, security updates, content updates, and priority support range from $500–$1,500/month depending on project complexity."
+    },
+    {
+      "section": "Custom Quote",
+      "text": "Every project at The Orvion gets a tailored quote based on your specific requirements, timeline, and goals. We offer a free 30-minute discovery call to understand your needs and provide an accurate estimate with no obligation. Contact us to get your personalized quote."
+    },
+    {
+      "section": "Payment Terms",
+      "text": "We typically work with a 50% upfront payment and 50% upon project completion for projects under $5,000. For larger projects, we use milestone-based payment schedules. We accept bank transfers, PayPal, and Stripe. All payments are secured and receipts are provided."
+    },
+    {
+      "section": "Free Services",
+      "text": "The Orvion offers a free initial consultation, free project discovery call, and free basic SEO audit with every web project. We also provide 30 days of free post-launch support and bug fixes for all completed projects."
+    }
+  ]
+}

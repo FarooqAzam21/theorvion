@@ -1,0 +1,50 @@
+{
+  "source": "services",
+  "title": "The Orvion Services",
+  "content": [
+    {
+      "section": "Collective Services Overview",
+      "text": "The Orvion is a full-cycle digital innovation agency providing a comprehensive suite of services: Custom Web Development (React/Next.js), AI & Machine Learning Solutions (LLMs/RAG), Premium E-Commerce Development (Shopify/Headless), Mobile App Development (React Native/Flutter), UI/UX Design (Figma/Prototyping), SaaS Product Engineering, SEO & Performance Optimization, and Cloud/DevOps Infrastructure. We specialize in building high-performance, AI-first digital products for global clients."
+    },
+    {
+      "section": "Web Development",
+      "text": "We build high-performance, scalable web applications using modern frameworks like React, Next.js, Vue.js, and Angular on the frontend, paired with Node.js, Python (Django/FastAPI), and Laravel on the backend. Our web apps are optimized for speed, SEO, accessibility, and conversion. Whether you need a landing page, SaaS platform, or complex web system — we deliver pixel-perfect results."
+    },
+    {
+      "section": "AI & Machine Learning Solutions",
+      "text": "The Orvion specializes in AI-powered product development. We build custom AI chatbots, RAG (Retrieval-Augmented Generation) systems, recommendation engines, predictive analytics dashboards, computer vision tools, NLP pipelines, and LLM integrations. We work with OpenAI GPT-4, Google Gemini, Anthropic Claude, and open-source models like LLaMA and Mistral."
+    },
+    {
+      "section": "AI Chatbot Development",
+      "text": "We build intelligent, context-aware AI chatbots for customer support, sales automation, lead qualification, and internal knowledge bases. Our chatbots use RAG architecture to answer accurately from your company's own data, preventing hallucinations. Integrations include WhatsApp, Slack, websites, and custom apps."
+    },
+    {
+      "section": "E-Commerce Development",
+      "text": "We design and develop premium e-commerce stores with a focus on conversion rate optimization. Our e-commerce solutions include custom Shopify development, headless commerce with Next.js + Shopify/WooCommerce, custom cart and checkout systems, payment gateway integrations (Stripe, PayPal, Razorpay), inventory management, and multi-vendor marketplaces."
+    },
+    {
+      "section": "Mobile App Development",
+      "text": "We build cross-platform mobile applications using React Native and Flutter, delivering native-quality experiences on both iOS and Android from a single codebase. Our mobile apps are performance-optimized, offline-capable, and integrate seamlessly with backend APIs and third-party services."
+    },
+    {
+      "section": "UI/UX Design",
+      "text": "Our design team crafts stunning, user-centered interfaces that delight users and drive business results. We offer brand identity design, UX research and wireframing, high-fidelity Figma prototypes, design systems, and motion design. We specialize in dark-mode, glassmorphism, and premium SaaS aesthetics."
+    },
+    {
+      "section": "SaaS Product Development",
+      "text": "We build full-featured SaaS platforms from scratch — including multi-tenancy, subscription billing (Stripe), user authentication, role-based access control (RBAC), analytics dashboards, admin panels, and scalable microservices architecture on cloud infrastructure."
+    },
+    {
+      "section": "API Development & Integrations",
+      "text": "We design and build robust REST and GraphQL APIs, and integrate third-party services including payment gateways, CRMs, ERPs, email platforms (SendGrid, Mailchimp), SMS services, social media APIs, shipping/logistics APIs, and more."
+    },
+    {
+      "section": "DevOps & Cloud",
+      "text": "We handle cloud infrastructure setup and optimization on AWS, Google Cloud, and DigitalOcean. Services include CI/CD pipeline setup (GitHub Actions, GitLab CI), Docker containerization, Kubernetes orchestration, serverless architecture, database management, performance monitoring, and security hardening."
+    },
+    {
+      "section": "SEO & Performance Optimization",
+      "text": "We provide end-to-end SEO services including technical audits, on-page optimization, keyword research, and content strategy. We specialize in optimizing Core Web Vitals and technical SEO for modern JavaScript frameworks (React/Next.js). Our goal is to ensure your site not only ranks on page 1 but also provides a lightning-fast user experience with Lighthouse scores above 90. We handle schema markup, structured data, and international SEO to maximize your global reach."
+    }
+  ]
+}

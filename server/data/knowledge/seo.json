@@ -1,0 +1,34 @@
+{
+  "source": "seo",
+  "title": "SEO & Digital Marketing at The Orvion",
+  "content": [
+    {
+      "section": "Comprehensive SEO Strategy",
+      "text": "The Orvion provides high-impact SEO services designed to skyrocket your organic traffic and visibility. Our approach is divided into four main pillars: Technical SEO, On-Page Optimization, Content Strategy, and Off-Page Authority Building. We don't just aim for rankings; we aim for high-quality leads and conversions."
+    },
+    {
+      "section": "Technical SEO & Performance",
+      "text": "We optimize the foundation of your website to ensure search engines can crawl and index your content efficiently. This includes optimizing Core Web Vitals (LCP, FID, CLS), implementing advanced Schema Markup (Structured Data), fixing sitemap and robots.txt issues, ensuring mobile-friendliness, and implementing SSL/HTTPS. We specialize in Next.js SSR (Server-Side Rendering) for maximum SEO benefits in modern web apps."
+    },
+    {
+      "section": "On-Page SEO Optimization",
+      "text": "Every page on your site is optimized for its target keywords. We handle meta tag optimization (Titles, Descriptions), header hierarchy (H1-H6), image ALT text, internal linking structures, and URL slug optimization. We ensure that your content is both user-friendly and search-engine optimized, maintaining a perfect balance between readability and ranking power."
+    },
+    {
+      "section": "Content Marketing & Authority",
+      "text": "Content is the engine of SEO. At The Orvion, we help you develop a data-driven content strategy. We perform deep keyword research to identify 'low-hanging fruit' and high-intent commercial keywords. Our team can guide you in creating blog posts, case studies, and whitepapers that establish your brand as a topical authority in your industry."
+    },
+    {
+      "section": "Local SEO",
+      "text": "For businesses targeting specific regions, we offer Local SEO services including Google Business Profile optimization, local citation building, and region-specific landing page creation. We help you dominate local searches like 'software house near me' or 'e-commerce agency in [City]'."
+    },
+    {
+      "section": "SEO Audits & Reporting",
+      "text": "We provide detailed SEO audits using professional tools like Ahrefs, SEMrush, and Google Search Console. Our reports provide clear insights into keyword rankings, backlink health, organic traffic growth, and competitor analysis. We follow a data-first approach, iterating on our strategy based on real-time performance metrics."
+    },
+    {
+      "section": "Conversion Rate Optimization (CRO)",
+      "text": "SEO gets users to your site, but CRO turns them into customers. We analyze user behavior using heatmaps and session recordings to identify friction points. We then optimize CTAs, forms, and page layouts to ensure your increased traffic translates into actual business growth."
+    }
+  ]
+}

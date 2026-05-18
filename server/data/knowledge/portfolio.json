@@ -1,0 +1,42 @@
+{
+  "source": "portfolio",
+  "title": "The Orvion Portfolio and Case Studies",
+  "content": [
+    {
+      "section": "Portfolio Overview",
+      "text": "The Orvion has delivered successful digital products across multiple industries including e-commerce, SaaS, fintech, healthcare tech, and AI. Our portfolio demonstrates our commitment to premium quality, technical excellence, and measurable business outcomes."
+    },
+    {
+      "section": "Project: AI-Powered E-Commerce Platform",
+      "text": "We built a full-featured headless e-commerce platform for a fashion brand with AI-powered product recommendations, visual search, and a smart chatbot assistant. Tech stack: Next.js, Node.js, Shopify Storefront API, Pinecone, OpenAI. Result: 40% increase in average order value and 25% improvement in conversion rate within 3 months of launch."
+    },
+    {
+      "section": "Project: SaaS Analytics Dashboard",
+      "text": "Developed a multi-tenant SaaS analytics platform for a marketing agency serving 200+ clients. Features: real-time data visualization, custom report builder, white-labeling, and role-based access control. Tech stack: React, Node.js, PostgreSQL, Redis, AWS. Result: reduced client reporting time by 70% and grew their MRR by $30,000 within 6 months."
+    },
+    {
+      "section": "Project: Healthcare Appointment Booking System",
+      "text": "Built a HIPAA-compliant online appointment booking and telemedicine platform for a network of clinics. Features: doctor scheduling, video consultation (WebRTC), patient records, insurance verification, and automated reminders. Tech stack: Next.js, Django, PostgreSQL, WebRTC, Twilio. Result: eliminated manual scheduling and reduced no-show rates by 35%."
+    },
+    {
+      "section": "Project: AI Customer Support Chatbot",
+      "text": "Created an intelligent RAG-based customer support chatbot for an e-commerce brand receiving 500+ daily customer inquiries. The bot was trained on product catalogs, FAQs, and return policies. Tech stack: React, Node.js, LangChain, Pinecone, GPT-4. Result: resolved 68% of inquiries automatically without human intervention, reducing support costs by 45%."
+    },
+    {
+      "section": "Project: Real Estate Listing Platform",
+      "text": "Developed a modern real estate platform with advanced search, map integration, virtual tours, mortgage calculator, and agent CRM. Tech stack: Next.js, Node.js, MongoDB, Google Maps API, AWS S3. Result: launched successfully with 1,000+ listings in the first month and secured Series A funding."
+    },
+    {
+      "section": "Project: Mobile Fitness App",
+      "text": "Built a cross-platform fitness and nutrition tracking mobile app with workout plans, calorie tracking, progress visualization, and social challenges. Tech stack: React Native (Expo), Node.js, PostgreSQL, Firebase. Result: reached 10,000 downloads in the first 90 days and achieved a 4.7-star App Store rating."
+    },
+    {
+      "section": "Project: Fintech Payment Dashboard",
+      "text": "Designed and developed a B2B payment processing dashboard for a fintech startup, including multi-currency support, fraud detection alerts, detailed transaction analytics, and automated invoicing. Tech stack: React, Node.js, Stripe Connect, PostgreSQL, Redis. Result: processed $2M+ in transactions in the first quarter post-launch."
+    },
+    {
+      "section": "Client Satisfaction",
+      "text": "The Orvion maintains a 5-star client satisfaction rating across all completed projects. 85% of our clients return for additional projects or ongoing maintenance. We have never missed a critical deadline and have successfully delivered 50+ projects across 15+ countries."
+    }
+  ]
+}

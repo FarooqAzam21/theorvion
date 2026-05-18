@@ -1,0 +1,46 @@
+{
+  "source": "technologies",
+  "title": "Technologies Used by The Orvion",
+  "content": [
+    {
+      "section": "Frontend Technologies",
+      "text": "We use React.js, Next.js, Vue.js, and Angular for frontend development. For styling, we use Tailwind CSS, SCSS, and styled-components. We animate with Framer Motion and GSAP. Our frontend stack is performance-first — every project targets Lighthouse scores above 90."
+    },
+    {
+      "section": "Backend Technologies",
+      "text": "Our backend stack includes Node.js with Express.js and Fastify for REST APIs, Python with FastAPI and Django for AI-heavy or data-intensive applications, and PHP with Laravel for enterprise CMS and e-commerce projects. We also work with GraphQL and tRPC."
+    },
+    {
+      "section": "AI and Machine Learning Stack",
+      "text": "We utilize the full spectrum of generative AI technologies, from proprietary giants like OpenAI GPT-4o and Google Gemini 1.5 Pro to high-performance open-source models like Meta LLaMA 3.1 and Mistral Large. Our AI architecture typically involves advanced RAG pipelines, semantic caching for low-latency responses, and multi-modal integration (Vision, Voice, and Text). We leverage LangChain and LlamaIndex for orchestration, ensuring our AI agents are context-aware, hallucination-free, and enterprise-ready."
+    },
+    {
+      "section": "Vector Databases",
+      "text": "For RAG systems and semantic search, we work with Pinecone, ChromaDB, Weaviate, Qdrant, Supabase Vector, and pgvector. We select the database based on project scale, latency requirements, and infrastructure preferences."
+    },
+    {
+      "section": "Databases",
+      "text": "We work with PostgreSQL, MySQL, and SQLite for relational databases. For NoSQL, we use MongoDB, Firebase Firestore, and DynamoDB. For caching, we use Redis. For real-time features, we use Supabase and Firebase Realtime Database."
+    },
+    {
+      "section": "Cloud and Infrastructure",
+      "text": "We deploy on AWS (EC2, Lambda, S3, RDS, CloudFront), Google Cloud Platform, DigitalOcean, Vercel, Netlify, and Railway. We use Docker for containerization, Kubernetes for orchestration at scale, and Nginx for web serving and reverse proxying."
+    },
+    {
+      "section": "Mobile Development",
+      "text": "We build cross-platform mobile apps with React Native (Expo) and Flutter. For native development requirements, we work with Swift (iOS) and Kotlin (Android). We use Firebase for push notifications, analytics, and crash reporting."
+    },
+    {
+      "section": "E-Commerce Platforms",
+      "text": "We develop on Shopify (custom themes and apps), WooCommerce, and custom headless commerce solutions using Next.js Commerce. We integrate with Stripe, PayPal, Square, Razorpay, and other payment gateways."
+    },
+    {
+      "section": "DevOps and CI/CD",
+      "text": "We use GitHub Actions and GitLab CI for continuous integration and deployment pipelines. Infrastructure as code with Terraform. Monitoring with Datadog, Sentry, and AWS CloudWatch. Log management with the ELK stack."
+    },
+    {
+      "section": "Design Tools",
+      "text": "Our design team works in Figma for UI/UX design and prototyping, Adobe Illustrator and Photoshop for graphics, and Lottie for micro-animations. We deliver complete design systems with tokens, components, and documentation."
+    }
+  ]
+}
