@@ -62,7 +62,7 @@ git push origin main
 ### For Backend (api.vercel.app)
 
 1. **Settings** → **Environment Variables**
-2. Add these:
+2. Add these (NO VITE_ prefix for backend):
 
 | Name | Value |
 |------|-------|
@@ -70,16 +70,20 @@ git push origin main
 | `FRONTEND_URL` | `https://YOUR-PROJECT.vercel.app` |
 | `NODE_ENV` | `production` |
 
+Access in code: `process.env.VARIABLE_NAME`
+
 3. Click **Redeploy** (important!)
 
 ### For Frontend (YOUR-PROJECT.vercel.app)
 
 1. **Settings** → **Environment Variables**
-2. Add:
+2. Add (with VITE_ prefix):
 
 | Name | Value |
 |------|-------|
 | `VITE_API_URL` | `https://YOUR-BACKEND.vercel.app` |
+
+Access in code: `import.meta.env.VITE_API_URL`
 
 3. Click **Redeploy**
 

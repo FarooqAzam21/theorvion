@@ -4,66 +4,59 @@ Complete reference for all environment variables needed for Vercel deployment.
 
 ---
 
-## Frontend Variables
+## Frontend Variables (React + Vite)
 
-### Development (.env.local)
+### Development (.env.local in root)
 
 ```env
-# Local development - backend runs on localhost
 VITE_API_URL=http://localhost:3001
 ```
 
 ### Production (Vercel Environment Variables)
 
 ```env
-# Production - backend on Vercel
 VITE_API_URL=https://your-backend.vercel.app
-
-# Or after connecting custom domain
+# Or after connecting custom domain:
 VITE_API_URL=https://api.your-domain.com
 ```
 
-**Note**: Frontend variables must be prefixed with `VITE_` to be accessible in browser
+**Important**: 
+- Frontend variables **must** be prefixed with `VITE_`
+- Access in code: `import.meta.env.VITE_API_URL`
+- Plain `process.env` won't work in browser code
 
 ---
 
-## Backend Variables
+## Backend Variables (Node.js + Express)
 
 ### Development (.env file in /server)
 
 ```env
-# Server Configuration
 PORT=3001
 NODE_ENV=development
-
-# Frontend Configuration
 FRONTEND_URL=http://localhost:5173
-
-# Google Generative AI
 GOOGLE_API_KEY=your_google_api_key_here
-
-# Optional: Logging
 LOG_LEVEL=debug
 ```
+
+Access in code: `process.env.GOOGLE_API_KEY`
 
 ### Production (Vercel Environment Variables)
 
 ```env
-# Server Configuration
 PORT=3001
 NODE_ENV=production
-
-# Frontend Configuration (update after domain is live)
 FRONTEND_URL=https://your-project.vercel.app
 # Or after custom domain:
 FRONTEND_URL=https://your-domain.com
-
-# Google Generative AI
 GOOGLE_API_KEY=your_google_api_key_here
-
-# Optional
 LOG_LEVEL=info
 ```
+
+**Important**: 
+- Backend uses `process.env` (Node.js standard)
+- Do NOT prefix backend variables with `VITE_`
+- `VITE_` prefix is only for frontend variables
 
 ---
 
@@ -154,17 +147,18 @@ Used for: After domain is verified and connected
 
 ### Frontend (.env.local in root)
 
-- [ ] `VITE_API_URL` points to backend
-- [ ] Starts with `VITE_` prefix
-- [ ] Not committed to Git
+- [ ] `VITE_API_URL` variable set (with VITE_ prefix)
+- [ ] Accessed via `import.meta.env.VITE_API_URL` in code
+- [ ] Points to correct backend URL
+- [ ] Not committed to Git (in .gitignore)
 
 ### Backend (.env in /server)
 
 - [ ] `GOOGLE_API_KEY` is valid
-- [ ] `FRONTEND_URL` is correct
-- [ ] `PORT` matches backend configuration
-- [ ] `NODE_ENV=production` for production
-- [ ] Not committed to Git
+- [ ] `FRONTEND_URL` is correct (no VITE_ prefix)
+- [ ] Accessed via `process.env.GOOGLE_API_KEY` in code
+- [ ] `PORT` and `NODE_ENV` set correctly
+- [ ] Not committed to Git (in .gitignore)
 
 ### Vercel Environment Variables
 
@@ -295,13 +289,13 @@ Format:
 
 ## Quick Variable Reference
 
-| Variable | Location | Purpose | Example |
-|----------|----------|---------|---------|
-| `VITE_API_URL` | Frontend .env.local | Tells frontend where backend is | `http://localhost:3001` |
-| `GOOGLE_API_KEY` | Backend .env & Vercel | Authenticates with Google AI | `AIzaSy...` |
-| `FRONTEND_URL` | Backend .env & Vercel | Allows frontend to access backend via CORS | `http://localhost:5173` |
-| `PORT` | Backend .env | Server listening port | `3001` |
-| `NODE_ENV` | Backend .env & Vercel | Environment mode | `development` or `production` |
+| Variable | Location | Access Method | Purpose |
+|----------|----------|---|----------|
+| `VITE_API_URL` | Frontend `.env.local` | `import.meta.env.VITE_API_URL` | Tells frontend where backend is |
+| `GOOGLE_API_KEY` | Backend `.env` & Vercel | `process.env.GOOGLE_API_KEY` | Authenticates with Google AI |
+| `FRONTEND_URL` | Backend `.env` & Vercel | `process.env.FRONTEND_URL` | CORS whitelist - allows frontend to access backend |
+| `PORT` | Backend `.env` | `process.env.PORT` | Server listening port |
+| `NODE_ENV` | Backend `.env` & Vercel | `process.env.NODE_ENV` | Environment mode (development/production) |
 
 ---
 

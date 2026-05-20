@@ -232,17 +232,21 @@ Try chatting in the UI
 
 ## 🔑 Key Environment Variables
 
-### Backend (Vercel)
+### Backend (Vercel - Node.js)
 ```
 GOOGLE_API_KEY      - Your Google Generative AI key (required)
 FRONTEND_URL        - Your frontend URL for CORS (required)
 NODE_ENV            - production (recommended)
 PORT                - 3001 (optional)
+
+Access: process.env.VARIABLE_NAME (NO VITE_ prefix)
 ```
 
-### Frontend (Vercel)
+### Frontend (Vercel - React + Vite)
 ```
-VITE_API_URL        - Your backend API URL (required)
+VITE_API_URL        - Your backend API URL (required, MUST have VITE_ prefix)
+
+Access: import.meta.env.VITE_API_URL (with VITE_ prefix)
 ```
 
 ---

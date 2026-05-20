@@ -215,16 +215,18 @@ In **Vercel Dashboard** → **Settings** → **Environment Variables**:
 |----------|-------|---------|
 | `VITE_API_URL` | Your backend API URL | `https://api.your-domain.com` |
 
-### Backend Environment Variables
+### Backend Environment Variables (Node.js - use process.env)
 
 In **Vercel Dashboard** → **Settings** → **Environment Variables**:
 
 | Variable | Value | Required | Example |
-|----------|-------|----------|---------|
+|----------|-------|----------|----------|
 | `GOOGLE_API_KEY` | Your Google Generative AI key | ✅ | `AIzaSy...` |
-| `FRONTEND_URL` | Your frontend URL | ✅ | `https://orvion.vercel.app` |
+| `FRONTEND_URL` | Your frontend URL (for CORS) | ✅ | `https://orvion.vercel.app` |
 | `PORT` | Server port | ❌ | `3001` |
-| `NODE_ENV` | Environment | ❌ | `production` |
+| `NODE_ENV` | Environment mode | ❌ | `production` |
+
+**Note**: Backend variables should NOT have `VITE_` prefix. Access with `process.env.VARIABLE_NAME`
 
 ### Getting Your Google API Key
 

@@ -328,7 +328,7 @@ In Vercel Dashboard:
 
 ## Environment Variable Validation
 
-### Verify Variables Are Set
+### Verify Backend Variables Are Set
 
 ```bash
 # In your backend code, add temporary logging:
@@ -339,13 +339,17 @@ console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 # Should show your values (don't log full keys!)
 ```
 
+**Backend variables:** Access with `process.env.VARIABLE_NAME` - NO VITE_ prefix
+
 ### Check Frontend Variables
 
 In browser console:
 ```javascript
-// This won't show private variables, but tells you about build
+// Access Vite frontend variables with VITE_ prefix
 console.log('API URL:', import.meta.env.VITE_API_URL);
 ```
+
+**Frontend variables:** Must use `VITE_` prefix and access with `import.meta.env.VITE_API_URL`
 
 ---
 
