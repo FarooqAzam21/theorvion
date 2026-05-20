@@ -103,7 +103,7 @@ const Footer = () => {
           <p className="text-[#c4b5fd]/30 text-sm">
             © {new Date().getFullYear()} The Orvion Agency. All rights reserved.
           </p>
-          <div className="flex gap-8">
+          <div className="flex gap-4 sm:gap-8 flex-wrap justify-center">
              <a href="#" className="text-[#c4b5fd]/30 hover:text-violet-400 text-xs transition-colors">Privacy Policy</a>
              <a href="#" className="text-[#c4b5fd]/30 hover:text-violet-400 text-xs transition-colors">Terms of Service</a>
              <a href="#" className="text-[#c4b5fd]/30 hover:text-violet-400 text-xs transition-colors">Cookie Policy</a>

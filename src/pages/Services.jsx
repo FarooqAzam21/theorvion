@@ -1,67 +1,12 @@
 import { motion } from 'framer-motion';
 import { Globe, Palette, TrendingUp, Cpu, MessageSquare, BarChart, Cloud, Code } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import { servicesData } from '../data/servicesData';
 
 const ServicesPage = () => {
-  const services = [
-    {
-      id: 1,
-      title: 'E-Commerce Website Development',
-      description: 'Build powerful online stores that convert visitors into paying customers with secure payment gateways and inventory management.',
-      icon: Globe,
-      features: ['Shopping Cart System', 'Payment Gateway Integration', 'Inventory Management', 'Order Tracking'],
-    },
-    {
-      id: 2,
-      title: 'UI/UX Design',
-      description: 'Create beautiful, intuitive user interfaces that engage your audience and improve conversion rates.',
-      icon: Palette,
-      features: ['Wireframing', 'Prototyping', 'User Testing', 'Design Systems'],
-    },
-    {
-      id: 3,
-      title: 'Digital Marketing',
-      description: 'Strategic campaigns designed to increase your online visibility and drive qualified traffic.',
-      icon: TrendingUp,
-      features: ['SEO Optimization', 'Content Marketing', 'Social Media', 'PPC Campaigns'],
-    },
-    {
-      id: 4,
-      title: 'AI Development',
-      description: 'Harness the power of artificial intelligence to automate processes and unlock new business opportunities.',
-      icon: Cpu,
-      features: ['Machine Learning Models', 'AI Chatbots', 'Predictive Analytics', 'Computer Vision'],
-    },
-    {
-      id: 5,
-      title: 'Chatbot Integration',
-      description: 'Deploy intelligent chatbots to handle customer support, sales inquiries, and improve user engagement 24/7.',
-      icon: MessageSquare,
-      features: ['Intent Recognition', 'Multi-language Support', 'Sentiment Analysis', 'Human Handoff'],
-    },
-    {
-      id: 6,
-      title: 'ML Model Development',
-      description: 'Custom machine learning solutions tailored to solve your specific business challenges.',
-      icon: BarChart,
-      features: ['Data Analysis', 'Model Training', 'Performance Optimization', 'Deployment'],
-    },
-    {
-      id: 7,
-      title: 'DevOps & Cloud Deployment',
-      description: 'Streamline your deployment pipeline with modern DevOps practices and cloud infrastructure.',
-      icon: Cloud,
-      features: ['CI/CD Pipeline', 'Docker Containerization', 'Kubernetes Orchestration', 'Cloud Migration'],
-    },
-    {
-      id: 8,
-      title: 'Custom Web Applications',
-      description: 'Bespoke web applications built to precisely match your unique business requirements.',
-      icon: Code,
-      features: ['Full Stack Development', 'Scalable Architecture', 'API Integration', 'Real-time Features'],
-    },
-  ];
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -123,7 +68,7 @@ const ServicesPage = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {services.map((service) => {
+            {servicesData.map((service) => {
               const Icon = service.icon;
               return (
                 <motion.div
@@ -136,10 +81,10 @@ const ServicesPage = () => {
                   <h3 className="text-2xl font-semibold mb-3 text-white">{service.title}</h3>
                   <p className="text-gray-400 mb-6">{service.description}</p>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-2 mb-6">
                     <p className="text-sm font-semibold text-blue-300">Key Features:</p>
                     <ul className="grid grid-cols-2 gap-2">
-                      {service.features.map((feature, index) => (
+                      {service.tags.map((feature, index) => (
                         <li key={index} className="text-sm text-gray-300 flex items-center">
                           <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />
                           {feature}
@@ -147,6 +92,13 @@ const ServicesPage = () => {
                       ))}
                     </ul>
                   </div>
+
+                  <button
+                    onClick={() => navigate(`/services/${service.id}`)}
+                    className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-colors duration-300"
+                  >
+                    Explore Service →
+                  </button>
                 </motion.div>
               );
             })}

@@ -64,25 +64,19 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-16 flex items-center gap-4 self-start lg:ml-0"
         >
-          <div className="w-12 h-12 flex items-center justify-center">
-            <img src="/assets/logo.png" alt="Orvion Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-          </div>
           <span className="text-xl font-medium tracking-wide text-white/90">The Orvion</span>
           <div className="w-1 h-1 rounded-full bg-violet-400 ml-2 animate-pulse" />
         </motion.div>
 
         {/* Central Brand Identity */}
         <div className="text-center mb-20 relative">
-          {/* Logo Watermark behind text */}
-          <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-5">
-             <img src="/assets/logo.png" alt="" className="w-[500px] h-[500px] object-contain rotate-12" />
-          </div>
+
 
           <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-7xl md:text-9xl font-bold font-sora tracking-widest mb-4 flex justify-center items-center gap-4"
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold font-sora tracking-widest mb-4 flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4"
           >
             <span className="text-white">The</span>
             <span className="gradient-text">Orvion</span>
@@ -90,9 +84,9 @@ const Hero = () => {
 
           <motion.div
             initial={{ opacity: 0, letterSpacing: '0.1em' }}
-            animate={{ opacity: 1, letterSpacing: '0.5em' }}
+            animate={{ opacity: 1, letterSpacing: window.innerWidth < 768 ? '0.2em' : '0.5em' }}
             transition={{ duration: 1.5, delay: 0.5 }}
-            className="text-xs md:text-sm font-medium text-violet-300/60 uppercase tracking-[0.5em] mt-8"
+            className="text-[10px] sm:text-xs md:text-sm font-medium text-violet-300/60 uppercase mt-8 text-center"
           >
             Intelligence in Every Layer
           </motion.div>

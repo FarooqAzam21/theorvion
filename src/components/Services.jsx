@@ -1,75 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  TrendingUp, 
-  Users, 
-  Globe, 
-  Search, 
-  Share2, 
-  Cpu, 
-  Palette, 
-  ArrowRight, 
-  Sparkles 
-} from 'lucide-react';
-
-const services = [
-  {
-    icon: TrendingUp,
-    title: 'Performance Marketing',
-    description: 'Data-driven marketing strategies designed to increase visibility, generate qualified leads, and drive measurable business growth.',
-    accent: 'from-violet-600 to-violet-800',
-    glow: 'rgba(147,51,234,0.18)',
-    tags: ['Leads', 'ROI', 'Growth'],
-  },
-  {
-    icon: Users,
-    title: 'Social Media Management',
-    description: 'Creative content and brand-focused social media strategies that help businesses build authority and engage their audience effectively.',
-    accent: 'from-violet-500 to-violet-700',
-    glow: 'rgba(168,85,247,0.18)',
-    tags: ['Brand', 'Engagement', 'Social'],
-  },
-  {
-    icon: Globe,
-    title: 'Web Development',
-    description: 'Modern, responsive, and high-performing websites built to strengthen your online presence and improve customer experience.',
-    accent: 'from-violet-700 to-indigo-900',
-    glow: 'rgba(139,92,246,0.18)',
-    tags: ['React', 'Performance', 'UX'],
-  },
-  {
-    icon: Search,
-    title: 'SEO Optimization',
-    description: 'Search engine optimization strategies focused on improving rankings, increasing organic traffic, and boosting online visibility.',
-    accent: 'from-violet-600 to-indigo-800',
-    glow: 'rgba(147,51,234,0.18)',
-    tags: ['Ranking', 'Traffic', 'SEO'],
-  },
-  {
-    icon: Share2,
-    title: 'Influencer Marketing',
-    description: 'Strategic influencer collaborations that connect your brand with the right audience and drive real conversions through authentic promotion.',
-    accent: 'from-violet-500 to-purple-800',
-    glow: 'rgba(168,85,247,0.18)',
-    tags: ['Auth', 'Reach', 'Sales'],
-  },
-  {
-    icon: Cpu,
-    title: 'AI & Automation Systems',
-    description: 'Smart automation solutions, AI-powered workflows, chatbots, and CRM integrations designed to improve efficiency.',
-    accent: 'from-violet-700 to-violet-900',
-    glow: 'rgba(139,92,246,0.18)',
-    tags: ['AI', 'Workflows', 'CRM'],
-  },
-  {
-    icon: Palette,
-    title: 'Branding & Creative Solutions',
-    description: 'Strategic branding, visual identity, and creative design solutions that help businesses stand out and create a lasting impression.',
-    accent: 'from-violet-600 to-indigo-700',
-    glow: 'rgba(147,51,234,0.18)',
-    tags: ['Identity', 'Design', 'Strategy'],
-  },
-];
+import { Link } from 'react-router-dom';
+import { servicesData } from '../data/servicesData';
 
 const ServiceCard = ({ service, index }) => {
   const Icon = service.icon;
@@ -119,10 +51,13 @@ const ServiceCard = ({ service, index }) => {
             </span>
           ))}
         </div>
-        <div className="flex items-center gap-2 text-xs font-semibold text-violet-400/60 group-hover:text-violet-300 transition-colors">
+        <Link to={`/services/${service.id}`} className="flex items-center gap-2 text-xs font-semibold text-violet-400/60 group-hover:text-violet-300 transition-colors w-fit">
           <span>Explore</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-        </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </Link>
         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${service.accent} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
       </div>
     </motion.div>
@@ -141,7 +76,9 @@ const Services = () => (
         className="text-center mb-20"
       >
         <div className="inline-flex items-center gap-2 mb-5 section-label">
-          <Sparkles className="w-3.5 h-3.5" /> Our Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
+          </svg> Our Services
         </div>
         <h2 className="text-responsive-lg font-extrabold font-sora text-white mb-5">
           Solutions for <span className="gradient-text">Modern Growth</span>
@@ -152,8 +89,8 @@ const Services = () => (
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {services.map((service, i) => (
-          <ServiceCard key={service.title} service={service} index={i} />
+        {servicesData.map((service, i) => (
+          <ServiceCard key={service.id} service={service} index={i} />
         ))}
       </div>
     </div>
