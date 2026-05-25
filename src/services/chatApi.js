@@ -2,7 +2,7 @@
 //  chatApi.js  —  Frontend API service for RAG chatbot
 // ─────────────────────────────────────────────────────────────
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL;
 
 /**
  * Send a message to the RAG chatbot backend.
