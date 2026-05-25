@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "echo: 'no build needed for backend' "
+    "build": "echo: 'no build needed for backend'",
     "ingest": "node scripts/ingest.js",
     "test:ollama": "node scripts/test-ollama.js"
   },
