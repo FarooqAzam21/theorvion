@@ -60,6 +60,16 @@ export const servicesData = [
     details: 'We help you tap into highly engaged audiences through strategic influencer partnerships. Our team handles everything from influencer identification and outreach to campaign management and performance tracking. We focus on authentic collaborations that align with your brand values and drive meaningful engagement.'
   },
   {
+    id: 'digital-marketing',
+    icon: TrendingUp,
+    title: 'Digital Marketing',
+    description: 'Full-funnel digital marketing strategies that improve brand visibility, attract qualified leads, and support consistent growth.',
+    accent: 'from-violet-600 to-fuchsia-700',
+    glow: 'rgba(217,70,239,0.18)',
+    tags: ['Content', 'Funnels', 'Growth'],
+    details: 'Our digital marketing services combine strategy, creative execution, analytics, and channel optimization. We help businesses plan campaigns, improve online visibility, create conversion-focused content, and build repeatable growth systems across the digital channels that matter most.'
+  },
+  {
     id: 'ai-automation',
     icon: Cpu,
     title: 'AI & Automation Systems',

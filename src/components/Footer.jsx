@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Zap, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 const SocialIcons = {
   Twitter: () => (
@@ -24,7 +24,11 @@ const Footer = () => {
   return (
     <footer className="relative bg-void pt-24 pb-12 px-5 sm:px-8 border-t border-violet-500/10 overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[min(900px,92vw)] h-px bg-gradient-to-r from-transparent via-orange-400/70 via-50% to-transparent" />
+      <div className="absolute -top-32 left-1/2 h-72 w-[min(900px,90vw)] -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-700/20 via-orange-500/20 to-fuchsia-500/20 blur-[90px]" />
+      <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-orange-500/10 blur-[90px]" />
+      <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-[100px]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-[radial-gradient(ellipse_at_bottom,rgba(249,115,22,0.16),transparent_68%)]" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -48,7 +52,7 @@ const Footer = () => {
                 <a 
                   key={i} 
                   href="#" 
-                  className="w-10 h-10 rounded-xl bg-violet-500/5 border border-violet-500/10 flex items-center justify-center text-violet-400 hover:bg-violet-500 hover:text-white hover:shadow-glow-violet transition-all duration-300"
+                  className="w-10 h-10 rounded-xl bg-violet-500/5 border border-violet-500/10 flex items-center justify-center text-violet-400 hover:border-orange-400/50 hover:bg-gradient-to-br hover:from-violet-600 hover:to-orange-500 hover:text-white hover:shadow-[0_0_28px_rgba(249,115,22,0.35)] transition-all duration-300"
                 >
                   <Icon />
                 </a>
@@ -83,14 +87,14 @@ const Footer = () => {
           {/* Newsletter */}
           <div>
             <h4 className="text-white font-bold font-sora mb-8">Newsletter</h4>
-            <p className="text-[#c4b5fd]/50 mb-6 text-sm">Join 5,000+ subscribers for digital insights.</p>
+            <p className="text-[#c4b5fd]/50 mb-6 text-sm">Get practical notes on software, automation, and growth systems.</p>
             <div className="relative">
                <input 
                  type="email" 
                  placeholder="Email address"
-                 className="w-full bg-violet-500/5 border border-violet-500/20 rounded-xl py-3 px-4 text-white text-sm outline-none focus:border-violet-500 transition-colors"
+                 className="w-full bg-violet-500/5 border border-violet-500/20 rounded-xl py-3 px-4 text-white text-sm outline-none focus:border-orange-400/60 focus:shadow-[0_0_24px_rgba(249,115,22,0.14)] transition-all"
                />
-               <button className="absolute right-1 top-1 bottom-1 px-4 rounded-lg bg-violet-600 text-white text-xs font-bold hover:bg-violet-500 transition-colors">
+               <button className="absolute right-1 top-1 bottom-1 px-4 rounded-lg bg-gradient-to-r from-violet-600 to-orange-500 text-white text-xs font-bold hover:from-violet-500 hover:to-orange-400 transition-colors">
                  Join
                </button>
             </div>
@@ -113,7 +117,7 @@ const Footer = () => {
             className="group flex items-center gap-2 text-[#c4b5fd]/50 hover:text-white transition-colors"
           >
             <span className="text-xs font-bold uppercase tracking-widest">Back to top</span>
-            <div className="w-8 h-8 rounded-full border border-violet-500/20 flex items-center justify-center group-hover:border-violet-500 group-hover:bg-violet-500/10 transition-all">
+            <div className="w-8 h-8 rounded-full border border-violet-500/20 flex items-center justify-center group-hover:border-orange-400/60 group-hover:bg-orange-500/10 group-hover:shadow-[0_0_24px_rgba(249,115,22,0.25)] transition-all">
                <ArrowUp className="w-4 h-4" />
             </div>
           </button>
@@ -121,8 +125,10 @@ const Footer = () => {
       </div>
 
       {/* Decorative text */}
-      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 select-none pointer-events-none opacity-[0.02]">
-         <h2 className="text-[200px] font-extrabold text-white leading-none whitespace-nowrap">THE ORVION</h2>
+      <div className="absolute bottom-0 left-1/2 w-full -translate-x-1/2 select-none pointer-events-none overflow-hidden text-center opacity-[0.055]">
+         <h2 className="bg-gradient-to-t from-orange-300 via-fuchsia-200 to-white bg-clip-text text-[clamp(3.5rem,16vw,12.5rem)] font-extrabold leading-[0.8] text-transparent whitespace-nowrap">
+          THE ORVION
+        </h2>
       </div>
     </footer>
   );

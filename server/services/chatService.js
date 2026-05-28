@@ -7,6 +7,37 @@ import { retrieve, calcConfidence } from './retrievalService.js';
 import { buildPrompt, buildCitations } from '../rag/promptBuilder.js';
 import logger from '../utils/logger.js';
 
+const SERVICE_INTENT_RE = /\b(services?|offer(?:ing)?s?|what\s+do\s+you\s+do|what\s+you\s+do|our\s+service|your\s+service|provide|solutions?)\b/i;
+
+const SERVICE_OVERVIEW_ANSWER = `The Orvion offers focused digital services for businesses that need practical growth, premium design, and reliable software delivery:
+
+- **Custom Software Development** — scalable business platforms, dashboards, portals, admin systems, and SaaS-style products.
+- **Web Applications** — fast, responsive, conversion-focused websites and web apps built with modern frontend and backend stacks.
+- **AI Automation** — AI chatbots, workflow automation, RAG systems, CRM integrations, and smart internal tools.
+- **UI/UX Design** — premium interfaces, landing pages, product flows, design systems, and conversion-focused user experiences.
+- **Digital Marketing** — campaign strategy, content, funnels, SEO support, and lead-generation systems.
+- **Influencer Marketing** — creator partnerships that help brands build trust, reach relevant audiences, and drive action.
+- **Cloud & Support** — deployment, monitoring, performance improvements, maintenance, and scalable infrastructure.
+
+If you already have a project in mind, share the goal and I can suggest the best service mix for it.`;
+
+const getDirectServiceAnswer = (message) => {
+  if (!SERVICE_INTENT_RE.test(message)) return null;
+
+  return {
+    answer: SERVICE_OVERVIEW_ANSWER,
+    sources: [
+      {
+        source: 'services',
+        section: 'Collective Services Overview',
+        title: 'The Orvion Services',
+        score: 100,
+      },
+    ],
+    confidence: 100,
+  };
+};
+
 const getOllamaConfig = () => ({
   host: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
   model: process.env.OLLAMA_MODEL || 'qwen2.5:0.5b',
@@ -74,6 +105,12 @@ const generateWithOllama = async (systemInstruction, contents) => {
  * @returns {Promise<{ answer: string, sources: object[], confidence: number }>}
  */
 export const chat = async (message, history = []) => {
+  const directAnswer = getDirectServiceAnswer(message);
+  if (directAnswer) {
+    logger.success('Direct services overview response generated');
+    return directAnswer;
+  }
+
   // 1. Retrieve relevant context chunks
   const contextChunks = await retrieve(message, Number(process.env.RAG_TOP_K || 2), 0.25);
   const confidence = calcConfidence(contextChunks);

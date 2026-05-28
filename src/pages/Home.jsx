@@ -1,9 +1,5 @@
 import Navigation from '../components/Navigation';
-import Hero from '../components/Hero';
-import Services from '../components/Services';
-import About from '../components/About';
-import WhyChooseUs from '../components/WhyChooseUs';
-import Contact from '../components/Contact';
+import PremiumHome from '../components/PremiumHome';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -12,11 +8,7 @@ const Home = () => {
       <Navigation />
       
       <main>
-        <Hero />
-        <Services />
-        <About />
-        <WhyChooseUs />
-        <Contact />
+        <PremiumHome />
       </main>
 
       <Footer />

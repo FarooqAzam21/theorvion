@@ -46,10 +46,10 @@ const Navigation = () => {
           to="/"
           className="flex items-center gap-3 group"
         >
-          <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-            <img src="/assets/logo.png" alt="Orvion Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" />
+          <div className="h-11 w-11 flex items-center justify-center rounded-2xl bg-white/[0.03] ring-1 ring-violet-500/15 transition-all duration-300 group-hover:scale-105 group-hover:ring-violet-400/40">
+            <img src="/assets/logo.png" alt="Orvion Logo" className="h-8 w-8 object-contain drop-shadow-[0_0_10px_rgba(168,85,247,0.55)]" />
           </div>
-          <span className="text-lg font-bold font-sora tracking-tight text-white/90">
+          <span className="hidden sm:block text-lg font-bold font-sora tracking-tight text-white/90">
             The Orvion
           </span>
         </Link>

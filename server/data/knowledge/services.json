@@ -4,7 +4,7 @@
   "content": [
     {
       "section": "Collective Services Overview",
-      "text": "The Orvion is a full-cycle digital innovation agency providing a comprehensive suite of services: Custom Web Development (React/Next.js), AI & Machine Learning Solutions (LLMs/RAG), Premium E-Commerce Development (Shopify/Headless), Mobile App Development (React Native/Flutter), UI/UX Design (Figma/Prototyping), SaaS Product Engineering, SEO & Performance Optimization, and Cloud/DevOps Infrastructure. We specialize in building high-performance, AI-first digital products for global clients."
+      "text": "The Orvion provides focused digital services for growing businesses: Custom Software Development, Web Applications, AI Automation, UI/UX Design, Digital Marketing, Influencer Marketing, Cloud & Support, SEO & Performance Optimization, SaaS Product Engineering, and API Integrations. We specialize in building premium, scalable digital products and growth systems with intelligence in every layer."
     },
     {
       "section": "Web Development",
@@ -29,6 +29,14 @@
     {
       "section": "UI/UX Design",
       "text": "Our design team crafts stunning, user-centered interfaces that delight users and drive business results. We offer brand identity design, UX research and wireframing, high-fidelity Figma prototypes, design systems, and motion design. We specialize in dark-mode, glassmorphism, and premium SaaS aesthetics."
+    },
+    {
+      "section": "Digital Marketing",
+      "text": "The Orvion provides digital marketing services focused on visibility, qualified leads, and measurable business growth. Services include campaign strategy, content planning, funnel optimization, SEO support, social media direction, conversion-focused landing pages, and analytics-based optimization."
+    },
+    {
+      "section": "Influencer Marketing",
+      "text": "The Orvion helps brands run influencer marketing campaigns through creator selection, outreach, campaign planning, content coordination, and performance tracking. We focus on authentic creator partnerships that build trust, reach relevant audiences, and drive meaningful action."
     },
     {
       "section": "SaaS Product Development",
