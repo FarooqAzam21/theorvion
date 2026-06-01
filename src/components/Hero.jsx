@@ -4,14 +4,18 @@ import { TrendingUp, BarChart, Code, Settings, Sparkles } from 'lucide-react';
 
 
 const Hero = () => {
-  const PARTICLES = Array.from({ length: 50 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 2 + 1,
-  duration: Math.random() * 10 + 5,
-  delay: Math.random() * 5,
-}));
+  const PARTICLES = useMemo(
+  () =>
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: (i * 17) % 100,
+      y: (i * 13) % 100,
+      size: 2,
+      duration: 8,
+      delay: 0,
+    })),
+  []
+);
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -61,8 +65,8 @@ const Hero = () => {
         
         {/* Brand Logo & Name */}
         <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
           className="mb-16 flex items-center gap-4 self-start lg:ml-0"
         >
           <span className="text-xl font-medium tracking-wide text-white/90">The Orvion</span>
@@ -74,8 +78,8 @@ const Hero = () => {
 
 
           <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold font-sora tracking-widest mb-4 flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4"
           >
