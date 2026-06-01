@@ -1,8 +1,10 @@
-import { useRef } from 'react';
+import { useRef , useMemo  } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TrendingUp, BarChart, Code, Settings, Sparkles } from 'lucide-react';
 
-const PARTICLES = Array.from({ length: 50 }, (_, i) => ({
+
+const Hero = () => {
+  const PARTICLES = Array.from({ length: 50 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
@@ -11,7 +13,6 @@ const PARTICLES = Array.from({ length: 50 }, (_, i) => ({
   delay: Math.random() * 5,
 }));
 
-const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
@@ -25,7 +26,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-void pt-20"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-void pt-24"
     >
       {/* ─── Background Elements ─── */}
       <div className="noise absolute inset-0 pointer-events-none z-0" />
@@ -83,10 +84,10 @@ const Hero = () => {
           </motion.h1>
 
           <motion.div
-            initial={{ opacity: 0, letterSpacing: '0.1em' }}
-            animate={{ opacity: 1, letterSpacing: window.innerWidth < 768 ? '0.2em' : '0.5em' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1}}
             transition={{ duration: 1.5, delay: 0.5 }}
-            className="text-[10px] sm:text-xs md:text-sm font-medium text-violet-300/60 uppercase mt-8 text-center"
+            className="text-[10px] sm:text-xs md:text-sm font-medium text-violet-300/60 uppercase mt-8 text-center tracking-[0.5em]"
           >
             Intelligence in Every Layer
           </motion.div>
