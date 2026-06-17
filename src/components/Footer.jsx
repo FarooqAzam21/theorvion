@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
@@ -81,6 +82,9 @@ const Footer = () => {
                   <a href="#" className="text-[#c4b5fd]/50 hover:text-violet-400 transition-colors font-medium">{link}</a>
                 </li>
               ))}
+              <li>
+                <Link to="/blog" className="text-[#c4b5fd]/50 hover:text-violet-400 transition-colors font-medium">Blog</Link>
+              </li>
             </ul>
           </div>
 
