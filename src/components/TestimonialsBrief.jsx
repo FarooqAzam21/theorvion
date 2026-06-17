@@ -1,34 +1,46 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_TESTIMONIALS = [
+  {
+    id: 1,
+    quote: 'Exceptional team who delivered our project on time and exceeded expectations.',
+    author: 'John Smith',
+    position: 'CEO, Tech Startup',
+    rating: 5,
+    initials: 'JS',
+  },
+  {
+    id: 2,
+    quote: 'Professional, reliable, and innovative. Highly recommend for any digital project.',
+    author: 'Sarah Johnson',
+    position: 'Marketing Director',
+    rating: 5,
+    initials: 'SJ',
+  },
+  {
+    id: 3,
+    quote: 'They transformed our business operations with cutting-edge solutions.',
+    author: 'Ahmed Hassan',
+    position: 'Founder',
+    rating: 5,
+    initials: 'AH',
+  },
+];
 
 const TestimonialsBrief = () => {
-  const testimonials = [
-    {
-      id: 1,
-      quote: 'Exceptional team who delivered our project on time and exceeded expectations.',
-      author: 'John Smith',
-      position: 'CEO, Tech Startup',
-      rating: 5,
-      initials: 'JS',
-    },
-    {
-      id: 2,
-      quote: 'Professional, reliable, and innovative. Highly recommend for any digital project.',
-      author: 'Sarah Johnson',
-      position: 'Marketing Director',
-      rating: 5,
-      initials: 'SJ',
-    },
-    {
-      id: 3,
-      quote: 'They transformed our business operations with cutting-edge solutions.',
-      author: 'Ahmed Hassan',
-      position: 'Founder',
-      rating: 5,
-      initials: 'AH',
-    },
-  ];
+  const { data: testimonialData } = useContent('testimonials', FALLBACK_TESTIMONIALS);
+
+  const testimonials = (testimonialData || FALLBACK_TESTIMONIALS).slice(0, 3).map(t => ({
+    id: t.id,
+    quote: t.quote || t.text || t.comment,
+    author: t.name || t.author,
+    position: t.role || t.position,
+    rating: t.rating || 5,
+    initials: t.initials || (t.name ? t.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : '') || 'C',
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },

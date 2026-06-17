@@ -12,6 +12,7 @@ import { runIngestion } from './rag/pipeline.js';
 import chatRoute from './routes/chat.js';
 import ingestRoute from './routes/ingest.js';
 import healthRoute from './routes/health.js';
+import contentRoute from './routes/content.js';
 import logger from './utils/logger.js';
 
 // Load .env from the same directory as this file
@@ -35,6 +36,8 @@ const allowedOrigins = [
   'http://localhost:5175',
   'http://127.0.0.1:5175',
   'http://localhost:4173',
+  'https://theorvion.io',
+  'https://www.theorvion.io',
 ];
 
 app.use(cors({
@@ -43,7 +46,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error(`CORS blocked: ${origin}`));
   },
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
@@ -73,6 +76,7 @@ app.get('/', (req, res) => {
 app.use('/api/health', healthRoute);
 app.use('/api/chat', chatRoute);
 app.use('/api/ingest', ingestRoute);
+app.use('/api/content', contentRoute);
 
 // ── 404 ───────────────────────────────────────────────────────
 app.use((req, res) => {

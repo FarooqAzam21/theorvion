@@ -2,58 +2,69 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Code } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_PROJECTS = [
+  {
+    id: 1,
+    title: 'E-Commerce Platform',
+    category: 'Web Development',
+    description: 'A full-featured e-commerce platform with payment integration, inventory management, and customer dashboard.',
+    tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    emoji: '🛍️',
+  },
+  {
+    id: 2,
+    title: 'AI Chat Assistant',
+    category: 'AI/ML',
+    description: 'Intelligent chatbot with NLP capabilities, able to handle customer support and sales inquiries 24/7.',
+    tech: ['Python', 'TensorFlow', 'React', 'Node.js'],
+    emoji: '🤖',
+  },
+  {
+    id: 3,
+    title: 'SaaS Dashboard',
+    category: 'Web App',
+    description: 'Analytics and management dashboard for SaaS applications with real-time data visualization.',
+    tech: ['React', 'TypeScript', 'PostgreSQL', 'GraphQL'],
+    emoji: '📊',
+  },
+  {
+    id: 4,
+    title: 'Mobile Banking App',
+    category: 'Mobile Development',
+    description: 'Secure mobile banking application with transaction history, transfers, and bill payments.',
+    tech: ['React Native', 'Node.js', 'PostgreSQL'],
+    emoji: '🏦',
+  },
+  {
+    id: 5,
+    title: 'IoT Device Management',
+    category: 'IoT/DevOps',
+    description: 'System for managing and monitoring IoT devices with real-time alerts and data collection.',
+    tech: ['Python', 'Docker', 'Kubernetes', 'AWS'],
+    emoji: '🔌',
+  },
+  {
+    id: 6,
+    title: 'Marketing Automation',
+    category: 'Web App',
+    description: 'Campaign management and automation platform for digital marketing teams.',
+    tech: ['React', 'Node.js', 'MongoDB', 'Redis'],
+    emoji: '📧',
+  },
+];
 
 const ProjectsPage = () => {
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      category: 'Web Development',
-      description: 'A full-featured e-commerce platform with payment integration, inventory management, and customer dashboard.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      emoji: '🛍️',
-    },
-    {
-      id: 2,
-      title: 'AI Chat Assistant',
-      category: 'AI/ML',
-      description: 'Intelligent chatbot with NLP capabilities, able to handle customer support and sales inquiries 24/7.',
-      tech: ['Python', 'TensorFlow', 'React', 'Node.js'],
-      emoji: '🤖',
-    },
-    {
-      id: 3,
-      title: 'SaaS Dashboard',
-      category: 'Web App',
-      description: 'Analytics and management dashboard for SaaS applications with real-time data visualization.',
-      tech: ['React', 'TypeScript', 'PostgreSQL', 'GraphQL'],
-      emoji: '📊',
-    },
-    {
-      id: 4,
-      title: 'Mobile Banking App',
-      category: 'Mobile Development',
-      description: 'Secure mobile banking application with transaction history, transfers, and bill payments.',
-      tech: ['React Native', 'Node.js', 'PostgreSQL'],
-      emoji: '🏦',
-    },
-    {
-      id: 5,
-      title: 'IoT Device Management',
-      category: 'IoT/DevOps',
-      description: 'System for managing and monitoring IoT devices with real-time alerts and data collection.',
-      tech: ['Python', 'Docker', 'Kubernetes', 'AWS'],
-      emoji: '🔌',
-    },
-    {
-      id: 6,
-      title: 'Marketing Automation',
-      category: 'Web App',
-      description: 'Campaign management and automation platform for digital marketing teams.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Redis'],
-      emoji: '📧',
-    },
-  ];
+  const { data: portfolioData } = useContent('portfolio', FALLBACK_PROJECTS);
+  const projects = (portfolioData || FALLBACK_PROJECTS).map(p => ({
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    description: p.description,
+    tech: p.tech || [],
+    emoji: p.emoji || '💼',
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },

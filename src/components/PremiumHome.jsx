@@ -6,10 +6,13 @@ import {
   Calendar,
   Cloud,
   Code,
+  Cpu,
   Globe,
   Mail,
   MessageSquare,
   Paintbrush,
+  Server,
+  Share2,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -17,6 +20,7 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
+import useContent from '../hooks/useContent';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -113,7 +117,18 @@ const StarField = () => (
   </div>
 );
 
-const Hero = () => (
+const FALLBACK_HERO_STATS = [
+  { id: 'projects', value: 20, suffix: '+', label: 'Projects Delivered' },
+  { id: 'industries', value: 5, suffix: '+', label: 'Industries Served' },
+  { id: 'response', value: 24, suffix: 'h', label: 'Typical Response' },
+  { id: 'experience', value: 2, suffix: '+', label: 'Years Experience' },
+];
+
+const Hero = () => {
+  const { data: stats } = useContent('statistics', { hero: FALLBACK_HERO_STATS });
+  const heroStats = stats?.hero || FALLBACK_HERO_STATS;
+
+  return (
   <section id="hero" className="relative min-h-[92vh] overflow-hidden bg-void px-5 pb-16 pt-28 sm:px-8 lg:pt-32">
     <StarField />
     <div className="noise absolute inset-0 pointer-events-none" />
@@ -168,26 +183,25 @@ const Hero = () => (
           </a>
         </motion.div>
         <motion.div variants={fadeUp} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <Counter value={20} suffix="+" label="Projects Delivered" />
-          <Counter value={5} suffix="+" label="Industries Served" />
-          <Counter value={24} suffix="h" label="Typical Response" />
-          <Counter value={2} suffix="+" label="Years Experience" />
+          {heroStats.map((stat) => (
+            <Counter key={stat.id} value={stat.value} suffix={stat.suffix} label={stat.label} />
+          ))}
         </motion.div>
       </motion.div>
     </div>
   </section>
-);
+  );
+};
 
 const Services = () => {
   const services = [
-    { icon: Bot, title: 'AI Automation', text: 'Automate repetitive work and connect your tools into smarter operations.' },
-    { icon: Code, title: 'Custom Software', text: 'Build scalable platforms, dashboards, portals, and business systems.' },
-    { icon: Globe, title: 'Web Applications', text: 'Fast, responsive, conversion-focused products with polished UX.' },
-    { icon: Smartphone, title: 'Mobile Solutions', text: 'Touch-friendly digital products for modern users and workflows.' },
-    { icon: Paintbrush, title: 'UI/UX Design', text: 'Premium interfaces that improve clarity, trust, and conversion.' },
-    { icon: Users, title: 'Influencer Marketing', text: 'Creator partnerships that build trust, reach the right audience, and drive action.' },
     { icon: TrendingUp, title: 'Digital Marketing', text: 'Campaigns, content, and funnels designed to increase visibility and qualified leads.' },
-    { icon: Cloud, title: 'Cloud & Support', text: 'Deploy, monitor, improve, and scale with confidence after launch.' },
+    { icon: Globe, title: 'Web Development', text: 'Fast, responsive, conversion-focused websites with polished UX.' },
+    { icon: Cpu, title: 'AI Development', text: 'Intelligent automation, chatbots, and ML systems for smarter operations.' },
+    { icon: Code, title: 'Software Solutions', text: 'Custom CRM, POS, ERP, and bespoke platforms for your business.' },
+    { icon: Share2, title: 'Influencer Marketing', text: 'Creator partnerships that build trust, reach the right audience, and drive action.' },
+    { icon: Server, title: 'DevOps', text: 'CI/CD pipelines, containerization, and monitoring for reliable delivery.' },
+    { icon: Cloud, title: 'Cloud Services', text: 'Deploy, monitor, improve, and scale with confidence after launch.' },
   ];
 
   return (

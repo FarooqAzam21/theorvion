@@ -1,53 +1,53 @@
 import { 
   TrendingUp, 
-  Users, 
   Globe, 
-  Search, 
-  Share2, 
   Cpu, 
-  Palette
+  Code,
+  Share2, 
+  Server,
+  Cloud
 } from 'lucide-react';
 
 export const servicesData = [
   {
-    id: 'performance-marketing',
+    id: 'digital-marketing',
     icon: TrendingUp,
-    title: 'Performance Marketing',
-    description: 'Data-driven marketing strategies designed to increase visibility, generate qualified leads, and drive measurable business growth.',
-    accent: 'from-violet-600 to-violet-800',
-    glow: 'rgba(147,51,234,0.18)',
-    tags: ['Leads', 'ROI', 'Growth'],
-    details: 'Our performance marketing approach is deeply rooted in analytics and ROI. We build campaigns across multiple channels to target the right audience at the right time. Using advanced tracking, A/B testing, and continuous optimization, we ensure every marketing dollar is spent effectively, driving sustainable growth for your business.'
-  },
-  {
-    id: 'social-media-management',
-    icon: Users,
-    title: 'Social Media Management',
-    description: 'Creative content and brand-focused social media strategies that help businesses build authority and engage their audience effectively.',
-    accent: 'from-violet-500 to-violet-700',
-    glow: 'rgba(168,85,247,0.18)',
-    tags: ['Brand', 'Engagement', 'Social'],
-    details: 'We take a comprehensive approach to social media management, acting as an extension of your brand. From content creation and curation to community management and paid advertising, we craft strategies that foster authentic relationships with your audience and turn followers into loyal customers.'
+    title: 'Digital Marketing',
+    description: 'Full-funnel digital marketing strategies that improve brand visibility, attract qualified leads, and support consistent business growth.',
+    accent: 'from-violet-600 to-fuchsia-700',
+    glow: 'rgba(217,70,239,0.18)',
+    tags: ['SEO', 'Content', 'Funnels', 'Growth'],
+    details: 'Our digital marketing services combine strategy, creative execution, analytics, and channel optimization. We help businesses plan campaigns, improve online visibility, create conversion-focused content, and build repeatable growth systems across the digital channels that matter most. From search engine optimization to paid advertising and email marketing, we drive measurable results.'
   },
   {
     id: 'web-development',
     icon: Globe,
     title: 'Web Development',
-    description: 'Modern, responsive, and high-performing websites built to strengthen your online presence and improve customer experience.',
+    description: 'Modern, responsive, and high-performing websites built to strengthen your online presence and improve customer experience across all devices.',
     accent: 'from-violet-700 to-indigo-900',
     glow: 'rgba(139,92,246,0.18)',
-    tags: ['React', 'Performance', 'UX'],
+    tags: ['React', 'Next.js', 'Performance', 'UX'],
     details: 'We build websites that are not only visually stunning but also lightning-fast, accessible, and optimized for search engines. Our development team specializes in modern frameworks like React and Next.js, ensuring your digital presence is robust, scalable, and capable of handling future growth while providing a seamless user experience.'
   },
   {
-    id: 'seo-optimization',
-    icon: Search,
-    title: 'SEO Optimization',
-    description: 'Search engine optimization strategies focused on improving rankings, increasing organic traffic, and boosting online visibility.',
+    id: 'ai-development',
+    icon: Cpu,
+    title: 'AI Development',
+    description: 'Intelligent AI solutions, automation workflows, chatbots, and machine learning systems designed to streamline operations and boost efficiency.',
+    accent: 'from-violet-700 to-violet-900',
+    glow: 'rgba(139,92,246,0.18)',
+    tags: ['AI', 'ML', 'Chatbots', 'Automation'],
+    details: 'Embrace the future of business with our AI development solutions. We build intelligent systems that streamline repetitive tasks, provide personalized customer experiences through advanced chatbots, and leverage machine learning for predictive analytics. Our solutions are designed to reduce operational costs and free up your team to focus on strategic initiatives.'
+  },
+  {
+    id: 'software-solutions',
+    icon: Code,
+    title: 'Software Solutions',
+    description: 'Custom CRM, POS, ERP, and bespoke software platforms engineered to optimize your business processes and drive operational excellence.',
     accent: 'from-violet-600 to-indigo-800',
     glow: 'rgba(147,51,234,0.18)',
-    tags: ['Ranking', 'Traffic', 'SEO'],
-    details: 'Our comprehensive SEO services cover on-page, off-page, and technical optimization. We conduct in-depth keyword research, optimize your website\'s architecture, and build authoritative backlinks. By aligning our strategies with the latest search engine algorithms, we help you achieve sustainable, long-term organic growth.'
+    tags: ['CRM', 'POS', 'ERP', 'Custom'],
+    details: 'We develop tailored software solutions that align perfectly with your business workflows. Whether you need a customer relationship management system, point-of-sale platform, enterprise resource planning tool, or a fully custom application, our team delivers scalable, secure, and intuitive software that grows with your business.'
   },
   {
     id: 'influencer-marketing',
@@ -56,37 +56,27 @@ export const servicesData = [
     description: 'Strategic influencer collaborations that connect your brand with the right audience and drive real conversions through authentic promotion.',
     accent: 'from-violet-500 to-purple-800',
     glow: 'rgba(168,85,247,0.18)',
-    tags: ['Auth', 'Reach', 'Sales'],
-    details: 'We help you tap into highly engaged audiences through strategic influencer partnerships. Our team handles everything from influencer identification and outreach to campaign management and performance tracking. We focus on authentic collaborations that align with your brand values and drive meaningful engagement.'
+    tags: ['Creators', 'Reach', 'Engagement', 'Sales'],
+    details: 'We help you tap into highly engaged audiences through strategic influencer partnerships. Our team handles everything from influencer identification and outreach to campaign management and performance tracking. We focus on authentic collaborations that align with your brand values and drive meaningful engagement and measurable conversions.'
   },
   {
-    id: 'digital-marketing',
-    icon: TrendingUp,
-    title: 'Digital Marketing',
-    description: 'Full-funnel digital marketing strategies that improve brand visibility, attract qualified leads, and support consistent growth.',
-    accent: 'from-violet-600 to-fuchsia-700',
-    glow: 'rgba(217,70,239,0.18)',
-    tags: ['Content', 'Funnels', 'Growth'],
-    details: 'Our digital marketing services combine strategy, creative execution, analytics, and channel optimization. We help businesses plan campaigns, improve online visibility, create conversion-focused content, and build repeatable growth systems across the digital channels that matter most.'
-  },
-  {
-    id: 'ai-automation',
-    icon: Cpu,
-    title: 'AI & Automation Systems',
-    description: 'Smart automation solutions, AI-powered workflows, chatbots, and CRM integrations designed to improve efficiency.',
-    accent: 'from-violet-700 to-violet-900',
-    glow: 'rgba(139,92,246,0.18)',
-    tags: ['AI', 'Workflows', 'CRM'],
-    details: 'Embrace the future of business with our AI and automation solutions. We implement intelligent systems that streamline repetitive tasks, provide personalized customer experiences through advanced chatbots, and integrate seamlessly with your CRM. Our solutions are designed to reduce operational costs and free up your team to focus on strategic initiatives.'
-  },
-  {
-    id: 'branding-creative',
-    icon: Palette,
-    title: 'Branding & Creative Solutions',
-    description: 'Strategic branding, visual identity, and creative design solutions that help businesses stand out and create a lasting impression.',
-    accent: 'from-violet-600 to-indigo-700',
+    id: 'devops',
+    icon: Server,
+    title: 'DevOps',
+    description: 'Streamlined CI/CD pipelines, infrastructure automation, and monitoring solutions to accelerate delivery and ensure system reliability.',
+    accent: 'from-violet-600 to-violet-800',
     glow: 'rgba(147,51,234,0.18)',
-    tags: ['Identity', 'Design', 'Strategy'],
-    details: 'A strong brand is the foundation of every successful business. Our creative team develops comprehensive brand identities that resonate with your target audience. From logo design and typography to brand messaging and visual guidelines, we ensure your brand communicates clearly and stands out in a crowded market.'
+    tags: ['CI/CD', 'Docker', 'Kubernetes', 'Monitoring'],
+    details: 'Our DevOps services bridge the gap between development and operations, enabling faster and more reliable software delivery. We implement continuous integration and deployment pipelines, containerization with Docker and Kubernetes, infrastructure as code, and comprehensive monitoring to ensure your applications run smoothly at scale.'
+  },
+  {
+    id: 'cloud-services',
+    icon: Cloud,
+    title: 'Cloud Services',
+    description: 'Scalable cloud infrastructure, migration strategies, and managed services to power your applications with enterprise-grade reliability.',
+    accent: 'from-violet-500 to-violet-700',
+    glow: 'rgba(168,85,247,0.18)',
+    tags: ['AWS', 'Azure', 'Migration', 'Scaling'],
+    details: 'Deploy, monitor, improve, and scale your applications with confidence using our cloud services. We provide cloud architecture design, seamless migration strategies, and ongoing managed services across major platforms including AWS, Azure, and Google Cloud. Our solutions ensure high availability, security, and cost optimization for your infrastructure.'
   },
 ];

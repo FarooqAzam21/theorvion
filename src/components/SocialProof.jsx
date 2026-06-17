@@ -1,7 +1,51 @@
 import { motion } from 'framer-motion';
 import { Star, Check } from 'lucide-react';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_STATS = [
+  { value: '500+', label: 'Successful Projects', icon: Check },
+  { value: '98%', label: 'Client Retention', icon: Star },
+  { value: '$50M+', label: 'Revenue Delivered', icon: '💰' },
+  { value: '99.9%', label: 'Uptime Record', icon: '⚡' },
+];
+
+const FALLBACK_TESTIMONIALS = [
+  {
+    rating: 5,
+    text: 'Orvion transformed our entire digital infrastructure. Their expertise in modern tech stack is unmatched.',
+    author: 'Sarah Chen',
+    role: 'CEO, TechVision',
+    image: '👩‍💼'
+  },
+  {
+    rating: 5,
+    text: 'The team delivered our AI platform in record time without compromising quality. Highly recommended.',
+    author: 'Marcus Johnson',
+    role: 'Founder, DataFlow',
+    image: '👨‍💼'
+  },
+  {
+    rating: 5,
+    text: 'Best development partner we\'ve worked with. Their attention to detail and communication is exceptional.',
+    author: 'Elena Rodriguez',
+    role: 'Product Director, CloudSync',
+    image: '👩‍🦰'
+  },
+];
 
 const SocialProof = () => {
+  const { data: statsData } = useContent('statistics', { socialProof: FALLBACK_STATS });
+  const { data: testimonialData } = useContent('testimonials', FALLBACK_TESTIMONIALS);
+
+  const stats = statsData?.socialProof || FALLBACK_STATS;
+  const testimonials = (testimonialData || FALLBACK_TESTIMONIALS).slice(0, 3).map(t => ({
+    rating: t.rating || 5,
+    text: t.quote || t.text,
+    author: t.name || t.author,
+    role: t.role,
+    image: t.image || '👤',
+  }));
+
   const clients = [
     { name: 'TechVision', category: 'AI Solutions' },
     { name: 'CloudSync', category: 'Infrastructure' },
@@ -9,37 +53,6 @@ const SocialProof = () => {
     { name: 'DigitalHub', category: 'E-Commerce' },
     { name: 'Innovate AI', category: 'ML Platform' },
     { name: 'NextGen', category: 'SaaS' },
-  ];
-
-  const stats = [
-    { value: '500+', label: 'Successful Projects', icon: Check },
-    { value: '98%', label: 'Client Retention', icon: Star },
-    { value: '$50M+', label: 'Revenue Delivered', icon: '💰' },
-    { value: '99.9%', label: 'Uptime Record', icon: '⚡' },
-  ];
-
-  const testimonials = [
-    {
-      rating: 5,
-      text: 'Orvion transformed our entire digital infrastructure. Their expertise in modern tech stack is unmatched.',
-      author: 'Sarah Chen',
-      role: 'CEO, TechVision',
-      image: '👩‍💼'
-    },
-    {
-      rating: 5,
-      text: 'The team delivered our AI platform in record time without compromising quality. Highly recommended.',
-      author: 'Marcus Johnson',
-      role: 'Founder, DataFlow',
-      image: '👨‍💼'
-    },
-    {
-      rating: 5,
-      text: 'Best development partner we\'ve worked with. Their attention to detail and communication is exceptional.',
-      author: 'Elena Rodriguez',
-      role: 'Product Director, CloudSync',
-      image: '👩‍🦰'
-    },
   ];
 
   return (

@@ -2,58 +2,78 @@ import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_TESTIMONIALS = [
+  {
+    id: 1,
+    quote: 'Exceptional team who delivered our project on time and exceeded expectations. Their attention to detail and commitment to quality is remarkable.',
+    author: 'John Smith',
+    position: 'CEO, Tech Startup',
+    rating: 5,
+    initials: 'JS',
+  },
+  {
+    id: 2,
+    quote: 'Professional, reliable, and innovative. Highly recommend for any digital project. They understood our needs perfectly.',
+    author: 'Sarah Johnson',
+    position: 'Marketing Director',
+    rating: 5,
+    initials: 'SJ',
+  },
+  {
+    id: 3,
+    quote: 'They transformed our business operations with cutting-edge solutions. The ROI was incredible.',
+    author: 'Ahmed Hassan',
+    position: 'Founder, E-Commerce Store',
+    rating: 5,
+    initials: 'AH',
+  },
+  {
+    id: 4,
+    quote: 'Outstanding communication and technical expertise. Best investment we made for our company.',
+    author: 'Emily Brown',
+    position: 'Product Manager',
+    rating: 5,
+    initials: 'EB',
+  },
+  {
+    id: 5,
+    quote: 'The team went above and beyond to ensure our satisfaction. Truly world-class service.',
+    author: 'David Lee',
+    position: 'CTO, Financial Services',
+    rating: 5,
+    initials: 'DL',
+  },
+  {
+    id: 6,
+    quote: 'Fast, efficient, and highly skilled developers. They delivered features we didn\'t even know were possible.',
+    author: 'Lisa Anderson',
+    position: 'Business Owner',
+    rating: 5,
+    initials: 'LA',
+  },
+];
+
+const FALLBACK_STATS = [
+  { value: '98%', label: 'Client Satisfaction' },
+  { value: '200+', label: 'Happy Clients' },
+  { value: '500+', label: 'Projects Delivered' },
+];
 
 const TestimonialsPage = () => {
-  const testimonials = [
-    {
-      id: 1,
-      quote: 'Exceptional team who delivered our project on time and exceeded expectations. Their attention to detail and commitment to quality is remarkable.',
-      author: 'John Smith',
-      position: 'CEO, Tech Startup',
-      rating: 5,
-      initials: 'JS',
-    },
-    {
-      id: 2,
-      quote: 'Professional, reliable, and innovative. Highly recommend for any digital project. They understood our needs perfectly.',
-      author: 'Sarah Johnson',
-      position: 'Marketing Director',
-      rating: 5,
-      initials: 'SJ',
-    },
-    {
-      id: 3,
-      quote: 'They transformed our business operations with cutting-edge solutions. The ROI was incredible.',
-      author: 'Ahmed Hassan',
-      position: 'Founder, E-Commerce Store',
-      rating: 5,
-      initials: 'AH',
-    },
-    {
-      id: 4,
-      quote: 'Outstanding communication and technical expertise. Best investment we made for our company.',
-      author: 'Emily Brown',
-      position: 'Product Manager',
-      rating: 5,
-      initials: 'EB',
-    },
-    {
-      id: 5,
-      quote: 'The team went above and beyond to ensure our satisfaction. Truly world-class service.',
-      author: 'David Lee',
-      position: 'CTO, Financial Services',
-      rating: 5,
-      initials: 'DL',
-    },
-    {
-      id: 6,
-      quote: 'Fast, efficient, and highly skilled developers. They delivered features we didn\'t even know were possible.',
-      author: 'Lisa Anderson',
-      position: 'Business Owner',
-      rating: 5,
-      initials: 'LA',
-    },
-  ];
+  const { data: testimonialData } = useContent('testimonials', FALLBACK_TESTIMONIALS);
+  const { data: statsData } = useContent('statistics', { testimonialStats: FALLBACK_STATS });
+
+  const stats = statsData?.testimonialStats || FALLBACK_STATS;
+  const testimonials = (testimonialData || FALLBACK_TESTIMONIALS).map(t => ({
+    id: t.id,
+    quote: t.quote || t.text || t.comment,
+    author: t.name || t.author,
+    position: t.role || t.position,
+    rating: t.rating || 5,
+    initials: t.initials || (t.name ? t.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : '') || 'C',
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -97,33 +117,18 @@ const TestimonialsPage = () => {
       {/* Stats */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-secondary/10">
         <div className="max-w-7xl mx-auto grid grid-cols-3 gap-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-4xl font-bold text-blue-400 mb-2">98%</p>
-            <p className="text-gray-400">Client Satisfaction</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-4xl font-bold text-blue-400 mb-2">200+</p>
-            <p className="text-gray-400">Happy Clients</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-4xl font-bold text-blue-400 mb-2">500+</p>
-            <p className="text-gray-400">Projects Delivered</p>
-          </motion.div>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-4xl font-bold text-blue-400 mb-2">{stat.value}</p>
+              <p className="text-gray-400">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 

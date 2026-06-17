@@ -1,32 +1,32 @@
 import { motion } from 'framer-motion';
-import { Globe, Palette, TrendingUp, Cpu, MessageSquare, BarChart } from 'lucide-react';
+import { TrendingUp, Globe, Cpu, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ServicesBrief = () => {
   const services = [
     {
       id: 1,
-      title: 'E-Commerce Solutions',
-      description: 'Build powerful online stores that convert visitors to customers',
-      icon: Globe,
-    },
-    {
-      id: 2,
-      title: 'Web Design & Development',
-      description: 'Modern, responsive websites that captivate your audience',
-      icon: Palette,
-    },
-    {
-      id: 3,
       title: 'Digital Marketing',
-      description: 'Strategic campaigns to grow your online presence',
+      description: 'Strategic campaigns to grow your online presence and drive leads',
       icon: TrendingUp,
     },
     {
-      id: 4,
-      title: 'AI & Automation',
+      id: 2,
+      title: 'Web Development',
+      description: 'Modern, responsive websites that captivate your audience',
+      icon: Globe,
+    },
+    {
+      id: 3,
+      title: 'AI Development',
       description: 'Intelligent solutions for modern business challenges',
       icon: Cpu,
+    },
+    {
+      id: 4,
+      title: 'Software Solutions',
+      description: 'Custom CRM, POS, ERP, and bespoke platforms',
+      icon: Code,
     },
   ];
 

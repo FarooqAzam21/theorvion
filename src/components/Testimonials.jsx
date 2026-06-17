@@ -1,57 +1,63 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_TESTIMONIALS = [
+  {
+    name: 'Sarah Johnson',
+    role: 'CEO, TechStartup Inc.',
+    quote: 'Orvion transformed our vision into reality. Their team was professional, responsive, and delivered beyond expectations.',
+    rating: 5,
+    company: 'TechStartup Inc.',
+  },
+  {
+    name: 'Michael Chen',
+    role: 'Product Manager, GlobalTech',
+    quote: 'The AI solutions provided by Orvion have increased our efficiency by 40%. Amazing work!',
+    rating: 5,
+    company: 'GlobalTech',
+  },
+  {
+    name: 'Emily Rodriguez',
+    role: 'Founder, E-Commerce Plus',
+    quote: 'Working with Orvion was a game-changer for our business. Their expertise in e-commerce is unmatched.',
+    rating: 5,
+    company: 'E-Commerce Plus',
+  },
+  {
+    name: 'David Park',
+    role: 'CTO, Innovation Labs',
+    quote: 'Outstanding technical expertise and great communication throughout the project. Highly recommended!',
+    rating: 5,
+    company: 'Innovation Labs',
+  },
+  {
+    name: 'Lisa Anderson',
+    role: 'Business Director, Enterprise Solutions',
+    quote: 'Orvion provided scalable cloud infrastructure that handles millions of transactions daily.',
+    rating: 5,
+    company: 'Enterprise Solutions',
+  },
+  {
+    name: 'James Wilson',
+    role: 'Founder, FinTech Startup',
+    quote: 'Responsive team, excellent problem-solving skills, and delivered on time. A pleasure to work with!',
+    rating: 5,
+    company: 'FinTech Startup',
+  },
+];
+
+const FALLBACK_STATS = [
+  { value: '98%', label: 'Client Satisfaction' },
+  { value: '200+', label: 'Happy Clients' },
+  { value: '500+', label: 'Projects Delivered' },
+];
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      role: 'CEO, TechStartup Inc.',
-      comment:
-        'Orvion transformed our vision into reality. Their team was professional, responsive, and delivered beyond expectations.',
-      rating: 5,
-      company: 'TechStartup Inc.',
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Product Manager, GlobalTech',
-      comment:
-        'The AI solutions provided by Orvion have increased our efficiency by 40%. Amazing work!',
-      rating: 5,
-      company: 'GlobalTech',
-    },
-    {
-      name: 'Emily Rodriguez',
-      role: 'Founder, E-Commerce Plus',
-      comment:
-        'Working with Orvion was a game-changer for our business. Their expertise in e-commerce is unmatched.',
-      rating: 5,
-      company: 'E-Commerce Plus',
-    },
-    {
-      name: 'David Park',
-      role: 'CTO, Innovation Labs',
-      comment:
-        'Outstanding technical expertise and great communication throughout the project. Highly recommended!',
-      rating: 5,
-      company: 'Innovation Labs',
-    },
-    {
-      name: 'Lisa Anderson',
-      role: 'Business Director, Enterprise Solutions',
-      comment:
-        'Orvion provided scalable cloud infrastructure that handles millions of transactions daily.',
-      rating: 5,
-      company: 'Enterprise Solutions',
-    },
-    {
-      name: 'James Wilson',
-      role: 'Founder, FinTech Startup',
-      comment:
-        'Responsive team, excellent problem-solving skills, and delivered on time. A pleasure to work with!',
-      rating: 5,
-      company: 'FinTech Startup',
-    },
-  ];
+  const { data: testimonials } = useContent('testimonials', FALLBACK_TESTIMONIALS);
+  const { data: statsData } = useContent('statistics', { testimonialStats: FALLBACK_STATS });
+
+  const stats = statsData?.testimonialStats || FALLBACK_STATS;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -118,7 +124,7 @@ const Testimonials = () => {
 
               {/* Quote */}
               <p className="text-gray-300 mb-6 leading-relaxed italic">
-                "{testimonial.comment}"
+                "{testimonial.quote || testimonial.comment}"
               </p>
 
               {/* Author */}
@@ -143,11 +149,7 @@ const Testimonials = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          {[
-            { value: '98%', label: 'Client Satisfaction' },
-            { value: '200+', label: 'Happy Clients' },
-            { value: '500+', label: 'Projects Delivered' },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <div
               key={index}
               className="text-center p-6 rounded-2xl glass border border-purple-500/20"

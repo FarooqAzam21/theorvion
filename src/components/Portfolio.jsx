@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight, Sparkles } from 'lucide-react';
+import useContent from '../hooks/useContent';
 
-const projects = [
+const FALLBACK_PROJECTS = [
   {
     title: 'Nexus AI Platform',
     category: 'AI / SaaS',
@@ -41,6 +42,13 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const { data: portfolioData } = useContent('portfolio', FALLBACK_PROJECTS);
+  const projects = (portfolioData || FALLBACK_PROJECTS).map(p => ({
+    title: p.title,
+    category: p.category,
+    image: p.image,
+    color: p.color || 'from-violet-600/20 to-indigo-600/20',
+  }));
   return (
     <section id="portfolio" className="relative py-28 sm:py-36 px-5 sm:px-8 bg-void">
       <div className="max-w-7xl mx-auto">
@@ -96,6 +104,7 @@ const Portfolio = () => {
                 <img 
                   src={project.image} 
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent opacity-80`} />

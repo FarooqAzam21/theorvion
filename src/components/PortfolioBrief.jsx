@@ -1,31 +1,41 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import useContent from '../hooks/useContent';
+
+const FALLBACK_PROJECTS = [
+  {
+    id: 1,
+    title: 'E-Commerce Platform',
+    category: 'Web Development',
+    tech: ['React', 'Node.js', 'MongoDB'],
+    emoji: '🛍️',
+  },
+  {
+    id: 2,
+    title: 'AI Chat Assistant',
+    category: 'AI/ML',
+    tech: ['Python', 'TensorFlow', 'React'],
+    emoji: '🤖',
+  },
+  {
+    id: 3,
+    title: 'SaaS Dashboard',
+    category: 'Web App',
+    tech: ['React', 'TypeScript', 'PostgreSQL'],
+    emoji: '📊',
+  },
+];
 
 const PortfolioBrief = () => {
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      category: 'Web Development',
-      tech: ['React', 'Node.js', 'MongoDB'],
-      emoji: '🛍️',
-    },
-    {
-      id: 2,
-      title: 'AI Chat Assistant',
-      category: 'AI/ML',
-      tech: ['Python', 'TensorFlow', 'React'],
-      emoji: '🤖',
-    },
-    {
-      id: 3,
-      title: 'SaaS Dashboard',
-      category: 'Web App',
-      tech: ['React', 'TypeScript', 'PostgreSQL'],
-      emoji: '📊',
-    },
-  ];
+  const { data: portfolioData } = useContent('portfolio', FALLBACK_PROJECTS);
+  const projects = (portfolioData || FALLBACK_PROJECTS).slice(0, 3).map(p => ({
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    tech: p.tech || [],
+    emoji: p.emoji || '💼',
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },

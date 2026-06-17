@@ -1,0 +1,218 @@
+{
+  "statistics": {
+    "hero": [
+      { "id": "projects", "value": 20, "suffix": "+", "label": "Projects Delivered" },
+      { "id": "industries", "value": 5, "suffix": "+", "label": "Industries Served" },
+      { "id": "response", "value": 24, "suffix": "h", "label": "Typical Response" },
+      { "id": "experience", "value": 2, "suffix": "+", "label": "Years Experience" }
+    ],
+    "socialProof": [
+      { "id": "projects", "value": "500+", "label": "Successful Projects" },
+      { "id": "retention", "value": "98%", "label": "Client Retention" },
+      { "id": "revenue", "value": "$50M+", "label": "Revenue Delivered" },
+      { "id": "uptime", "value": "99.9%", "label": "Uptime Record" }
+    ],
+    "testimonialStats": [
+      { "id": "satisfaction", "value": "98%", "label": "Client Satisfaction" },
+      { "id": "clients", "value": "200+", "label": "Happy Clients" },
+      { "id": "delivered", "value": "500+", "label": "Projects Delivered" }
+    ]
+  },
+  "services": [
+    {
+      "id": "digital-marketing",
+      "icon": "TrendingUp",
+      "title": "Digital Marketing",
+      "description": "Full-funnel digital marketing strategies that improve brand visibility, attract qualified leads, and support consistent business growth.",
+      "accent": "from-violet-600 to-fuchsia-700",
+      "glow": "rgba(217,70,239,0.18)",
+      "tags": ["SEO", "Content", "Funnels", "Growth"],
+      "details": "Our digital marketing services combine strategy, creative execution, analytics, and channel optimization. We help businesses plan campaigns, improve online visibility, create conversion-focused content, and build repeatable growth systems across the digital channels that matter most. From search engine optimization to paid advertising and email marketing, we drive measurable results.",
+      "order": 1
+    },
+    {
+      "id": "web-development",
+      "icon": "Globe",
+      "title": "Web Development",
+      "description": "Modern, responsive, and high-performing websites built to strengthen your online presence and improve customer experience across all devices.",
+      "accent": "from-violet-700 to-indigo-900",
+      "glow": "rgba(139,92,246,0.18)",
+      "tags": ["React", "Next.js", "Performance", "UX"],
+      "details": "We build websites that are not only visually stunning but also lightning-fast, accessible, and optimized for search engines. Our development team specializes in modern frameworks like React and Next.js, ensuring your digital presence is robust, scalable, and capable of handling future growth while providing a seamless user experience.",
+      "order": 2
+    },
+    {
+      "id": "ai-development",
+      "icon": "Cpu",
+      "title": "AI Development",
+      "description": "Intelligent AI solutions, automation workflows, chatbots, and machine learning systems designed to streamline operations and boost efficiency.",
+      "accent": "from-violet-700 to-violet-900",
+      "glow": "rgba(139,92,246,0.18)",
+      "tags": ["AI", "ML", "Chatbots", "Automation"],
+      "details": "Embrace the future of business with our AI development solutions. We build intelligent systems that streamline repetitive tasks, provide personalized customer experiences through advanced chatbots, and leverage machine learning for predictive analytics. Our solutions are designed to reduce operational costs and free up your team to focus on strategic initiatives.",
+      "order": 3
+    },
+    {
+      "id": "software-solutions",
+      "icon": "Code",
+      "title": "Software Solutions",
+      "description": "Custom CRM, POS, ERP, and bespoke software platforms engineered to optimize your business processes and drive operational excellence.",
+      "accent": "from-violet-600 to-indigo-800",
+      "glow": "rgba(147,51,234,0.18)",
+      "tags": ["CRM", "POS", "ERP", "Custom"],
+      "details": "We develop tailored software solutions that align perfectly with your business workflows. Whether you need a customer relationship management system, point-of-sale platform, enterprise resource planning tool, or a fully custom application, our team delivers scalable, secure, and intuitive software that grows with your business.",
+      "order": 4
+    },
+    {
+      "id": "influencer-marketing",
+      "icon": "Share2",
+      "title": "Influencer Marketing",
+      "description": "Strategic influencer collaborations that connect your brand with the right audience and drive real conversions through authentic promotion.",
+      "accent": "from-violet-500 to-purple-800",
+      "glow": "rgba(168,85,247,0.18)",
+      "tags": ["Creators", "Reach", "Engagement", "Sales"],
+      "details": "We help you tap into highly engaged audiences through strategic influencer partnerships. Our team handles everything from influencer identification and outreach to campaign management and performance tracking. We focus on authentic collaborations that align with your brand values and drive meaningful engagement and measurable conversions.",
+      "order": 5
+    },
+    {
+      "id": "devops",
+      "icon": "Server",
+      "title": "DevOps",
+      "description": "Streamlined CI/CD pipelines, infrastructure automation, and monitoring solutions to accelerate delivery and ensure system reliability.",
+      "accent": "from-violet-600 to-violet-800",
+      "glow": "rgba(147,51,234,0.18)",
+      "tags": ["CI/CD", "Docker", "Kubernetes", "Monitoring"],
+      "details": "Our DevOps services bridge the gap between development and operations, enabling faster and more reliable software delivery. We implement continuous integration and deployment pipelines, containerization with Docker and Kubernetes, infrastructure as code, and comprehensive monitoring to ensure your applications run smoothly at scale.",
+      "order": 6
+    },
+    {
+      "id": "cloud-services",
+      "icon": "Cloud",
+      "title": "Cloud Services",
+      "description": "Scalable cloud infrastructure, migration strategies, and managed services to power your applications with enterprise-grade reliability.",
+      "accent": "from-violet-500 to-violet-700",
+      "glow": "rgba(168,85,247,0.18)",
+      "tags": ["AWS", "Azure", "Migration", "Scaling"],
+      "details": "Deploy, monitor, improve, and scale your applications with confidence using our cloud services. We provide cloud architecture design, seamless migration strategies, and ongoing managed services across major platforms including AWS, Azure, and Google Cloud. Our solutions ensure high availability, security, and cost optimization for your infrastructure.",
+      "order": 7
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "role": "CEO, TechStartup Inc.",
+      "quote": "Orvion transformed our vision into reality. Their team was professional, responsive, and delivered beyond expectations.",
+      "rating": 5,
+      "initials": "SJ",
+      "company": "TechStartup Inc."
+    },
+    {
+      "id": 2,
+      "name": "Michael Chen",
+      "role": "Product Manager, GlobalTech",
+      "quote": "The AI solutions provided by Orvion have increased our efficiency by 40%. Amazing work!",
+      "rating": 5,
+      "initials": "MC",
+      "company": "GlobalTech"
+    },
+    {
+      "id": 3,
+      "name": "Emily Rodriguez",
+      "role": "Founder, E-Commerce Plus",
+      "quote": "Working with Orvion was a game-changer for our business. Their expertise in e-commerce is unmatched.",
+      "rating": 5,
+      "initials": "ER",
+      "company": "E-Commerce Plus"
+    },
+    {
+      "id": 4,
+      "name": "David Park",
+      "role": "CTO, Innovation Labs",
+      "quote": "Outstanding technical expertise and great communication throughout the project. Highly recommended!",
+      "rating": 5,
+      "initials": "DP",
+      "company": "Innovation Labs"
+    },
+    {
+      "id": 5,
+      "name": "Lisa Anderson",
+      "role": "Business Director, Enterprise Solutions",
+      "quote": "Orvion provided scalable cloud infrastructure that handles millions of transactions daily.",
+      "rating": 5,
+      "initials": "LA",
+      "company": "Enterprise Solutions"
+    },
+    {
+      "id": 6,
+      "name": "James Wilson",
+      "role": "Founder, FinTech Startup",
+      "quote": "Responsive team, excellent problem-solving skills, and delivered on time. A pleasure to work with!",
+      "rating": 5,
+      "initials": "JW",
+      "company": "FinTech Startup"
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 1,
+      "title": "E-Commerce Platform",
+      "category": "Web Development",
+      "description": "A full-featured e-commerce platform with payment integration, inventory management, and customer dashboard.",
+      "tech": ["React", "Node.js", "MongoDB", "Stripe"],
+      "emoji": "🛍️",
+      "image": "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-fuchsia-600/20 to-pink-600/20"
+    },
+    {
+      "id": 2,
+      "title": "AI Chat Assistant",
+      "category": "AI/ML",
+      "description": "Intelligent chatbot with NLP capabilities, able to handle customer support and sales inquiries 24/7.",
+      "tech": ["Python", "TensorFlow", "React", "Node.js"],
+      "emoji": "🤖",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-violet-600/20 to-indigo-600/20"
+    },
+    {
+      "id": 3,
+      "title": "SaaS Dashboard",
+      "category": "Web App",
+      "description": "Analytics and management dashboard for SaaS applications with real-time data visualization.",
+      "tech": ["React", "TypeScript", "PostgreSQL", "GraphQL"],
+      "emoji": "📊",
+      "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-indigo-600/20 to-violet-600/20"
+    },
+    {
+      "id": 4,
+      "title": "Mobile Banking App",
+      "category": "Mobile Development",
+      "description": "Secure mobile banking application with transaction history, transfers, and bill payments.",
+      "tech": ["React Native", "Node.js", "PostgreSQL"],
+      "emoji": "🏦",
+      "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-cyan-600/20 to-blue-600/20"
+    },
+    {
+      "id": 5,
+      "title": "IoT Device Management",
+      "category": "IoT/DevOps",
+      "description": "System for managing and monitoring IoT devices with real-time alerts and data collection.",
+      "tech": ["Python", "Docker", "Kubernetes", "AWS"],
+      "emoji": "🔌",
+      "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-pink-600/20 to-rose-600/20"
+    },
+    {
+      "id": 6,
+      "title": "Marketing Automation",
+      "category": "Web App",
+      "description": "Campaign management and automation platform for digital marketing teams.",
+      "tech": ["React", "Node.js", "MongoDB", "Redis"],
+      "emoji": "📧",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000",
+      "color": "from-blue-600/20 to-cyan-600/20"
+    }
+  ]
+}

@@ -63,6 +63,7 @@ const TechnologiesBrief = () => {
               <img 
                 src={technology.image} 
                 alt={technology.name}
+                loading="lazy"
                 className="h-16 w-16 mb-2 object-contain group-hover:scale-125 transition-transform duration-300"
               />
               <p className="text-sm font-medium text-white group-hover:text-blue-300 transition-colors">
