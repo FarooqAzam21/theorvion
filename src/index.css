@@ -991,3 +991,101 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── Rich Text Blog Content Styles ──────────────────────── */
+.rich-text-content h1 {
+  font-family: "Sora", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f0eeff;
+  margin: 1.5rem 0 0.75rem;
+  line-height: 1.2;
+}
+.rich-text-content h2 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e9e1ff;
+  margin: 1.75rem 0 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+.rich-text-content h3 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #d8ccff;
+  margin: 1.5rem 0 0.5rem;
+}
+.rich-text-content p {
+  margin: 0 0 1.25rem;
+  line-height: 1.8;
+}
+.rich-text-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0 1.25rem;
+}
+.rich-text-content ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin: 1rem 0 1.25rem;
+}
+.rich-text-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+  color: #c4b5fd;
+}
+.rich-text-content blockquote {
+  border-left: 3px solid rgba(139, 92, 246, 0.6);
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba(139, 92, 246, 0.06);
+  border-radius: 0 12px 12px 0;
+  color: #a78bfa;
+  font-style: italic;
+}
+.rich-text-content code {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-family: "Courier New", monospace;
+  font-size: 0.88em;
+  color: #c084fc;
+}
+.rich-text-content pre {
+  background: rgba(8, 5, 30, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.rich-text-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #c4b5fd;
+  font-size: 0.9rem;
+}
+.rich-text-content a {
+  color: #a78bfa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.rich-text-content a:hover { color: #c084fc; }
+.rich-text-content strong { color: #f0eeff; font-weight: 700; }
+.rich-text-content em { color: #d8b4fe; font-style: italic; }
+.rich-text-content img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+.rich-text-content hr {
+  border: none;
+  border-top: 1px solid rgba(139, 92, 246, 0.15);
+  margin: 2rem 0;
+}

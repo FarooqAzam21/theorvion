@@ -13,6 +13,10 @@ import chatRoute from './routes/chat.js';
 import ingestRoute from './routes/ingest.js';
 import healthRoute from './routes/health.js';
 import contentRoute from './routes/content.js';
+import authRoute from './routes/auth.js';
+import blogsRoute from './routes/blogs.js';
+import adminBlogsRoute from './routes/adminBlogs.js';
+import { connectDB } from './services/db.js';
 import logger from './utils/logger.js';
 
 // Load .env from the same directory as this file
@@ -46,7 +50,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error(`CORS blocked: ${origin}`));
   },
-  methods: ['GET', 'POST', 'PUT'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
@@ -77,6 +81,10 @@ app.use('/api/health', healthRoute);
 app.use('/api/chat', chatRoute);
 app.use('/api/ingest', ingestRoute);
 app.use('/api/content', contentRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/blogs', blogsRoute);
+app.use('/api/admin/blogs', adminBlogsRoute);
+app.use('/uploads', express.static(path.join(__dirname, 'data/uploads')));
 
 // ── 404 ───────────────────────────────────────────────────────
 app.use((req, res) => {
@@ -92,6 +100,9 @@ app.use((err, req, res, _next) => {
 // ── Startup ───────────────────────────────────────────────────
 const start = async () => {
   logger.info('Starting The Orvion RAG Server...');
+
+  // Initialize Database
+  await connectDB();
 
   const provider = process.env.GEMINI_API_KEY ? 'Google Gemini (Fast Mode)' : `Ollama (${process.env.OLLAMA_MODEL || 'qwen2.5:0.5b'})`;
   logger.info(`Active AI Provider: ${provider}`);

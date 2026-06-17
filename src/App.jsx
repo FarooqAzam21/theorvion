@@ -11,6 +11,10 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
+const BlogListing = lazy(() => import('./pages/BlogListing'));
+const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
 // Stylized loading fallback to keep with the site's dark premium aesthetic
 const PageLoader = () => (
@@ -36,6 +40,12 @@ function App() {
             <Route path="/services/:id" element={<ServiceDetail />} />
             <Route path="/why-us" element={<WhyUsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            
+            <Route path="/blog" element={<BlogListing />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
             <Route path="*" element={<Home />} /> 
           </Routes>
         </Suspense>
