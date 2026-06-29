@@ -33,6 +33,15 @@ router.post('/', chatLimiter, validateChatRequest, async (req, res) => {
   } catch (err) {
     logger.error('Chat generation failed', err);
 
+    // All providers exhausted (all returned 429 / quota errors)
+    if (err.message?.includes('All AI providers')) {
+      return res.status(503).json({
+        success: false,
+        error: 'Our AI service is temporarily at capacity. Please try again in a moment.',
+        code: 'AI_CAPACITY',
+      });
+    }
+
     if (err.message?.includes('API_KEY_INVALID') || err.message?.includes('API key not valid')) {
       return res.status(503).json({
         success: false,
@@ -44,7 +53,7 @@ router.post('/', chatLimiter, validateChatRequest, async (req, res) => {
     if (
       err.message?.includes('fetch failed') ||
       err.message?.includes('ECONNREFUSED') ||
-      err.message?.includes('Ollama request timed out')
+      err.message?.includes('timed out')
     ) {
       return res.status(503).json({
         success: false,
