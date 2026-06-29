@@ -7,13 +7,20 @@ import { buildPrompt, buildCitations } from '../rag/promptBuilder.js';
 import logger from '../utils/logger.js';
 
 // ── Shared helper: convert Gemini-format contents to OpenAI messages ──────────
-const toOpenAIMessages = (systemInstruction, contents) => [
-  { role: 'system', content: systemInstruction },
-  ...contents.map((turn) => ({
+// Groq/OpenAI require messages to start with 'user' — strip any leading assistant turns.
+const toOpenAIMessages = (systemInstruction, contents) => {
+  const mapped = contents.map((turn) => ({
     role: turn.role === 'model' ? 'assistant' : 'user',
     content: turn.parts?.map((p) => p.text).filter(Boolean).join('\n') || '',
-  })),
-];
+  }));
+  // Drop leading assistant messages to comply with OpenAI/Groq message ordering
+  const firstUserIdx = mapped.findIndex((m) => m.role === 'user');
+  const trimmed = firstUserIdx > 0 ? mapped.slice(firstUserIdx) : mapped;
+  return [
+    { role: 'system', content: systemInstruction },
+    ...trimmed,
+  ];
+};
 
 // ── Provider: Groq (free tier, OpenAI-compatible) ────────────────────────────
 /**
@@ -165,16 +172,21 @@ export const chat = async (message, history = []) => {
       return { answer, sources, confidence };
     } catch (err) {
       lastError = err;
-      // Cascade on quota/rate-limit errors (429) or connection failures
-      const isTransient = err.status === 429 || err.message?.includes('429') ||
-        err.message?.includes('quota') || err.message?.includes('rate') ||
-        err.message?.includes('fetch failed') || err.message?.includes('ECONNREFUSED');
+      // Always log the full error so it's visible in Render logs
+      logger.warn(`${provider.name} failed: [${err.status || 'ERR'}] ${err.message}`);
 
-      if (isTransient) {
-        logger.warn(`${provider.name} unavailable (${err.message?.slice(0, 80)}). Trying next provider...`);
+      // Cascade to next provider on ANY API-level error
+      // (quota, rate limit, bad request, auth, connectivity)
+      const isApiError = err.status >= 400 || err.message?.includes('429') ||
+        err.message?.includes('quota') || err.message?.includes('rate') ||
+        err.message?.includes('fetch failed') || err.message?.includes('ECONNREFUSED') ||
+        err.message?.includes('timed out') || err.message?.includes('GoogleGenerativeAI');
+
+      if (isApiError) {
+        logger.warn(`Cascading to next provider...`);
         continue;
       }
-      // Non-transient error — bubble up immediately
+      // Unexpected non-API error — bubble up
       throw err;
     }
   }
