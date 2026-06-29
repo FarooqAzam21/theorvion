@@ -33,6 +33,14 @@ router.post('/', chatLimiter, validateChatRequest, async (req, res) => {
   } catch (err) {
     logger.error('Chat generation failed', err);
 
+    if (err.message?.includes('API_KEY_INVALID') || err.message?.includes('API key not valid')) {
+      return res.status(503).json({
+        success: false,
+        error: 'AI service configuration error. Please contact support.',
+        code: 'AI_CONFIG_ERROR',
+      });
+    }
+
     if (
       err.message?.includes('fetch failed') ||
       err.message?.includes('ECONNREFUSED') ||
@@ -40,8 +48,8 @@ router.post('/', chatLimiter, validateChatRequest, async (req, res) => {
     ) {
       return res.status(503).json({
         success: false,
-        error: 'Local Ollama is not responding. Please start Ollama and try again.',
-        code: 'OLLAMA_UNAVAILABLE',
+        error: 'AI service is not responding. Please try again shortly.',
+        code: 'AI_UNAVAILABLE',
       });
     }
 

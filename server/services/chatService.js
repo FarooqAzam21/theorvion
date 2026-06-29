@@ -66,7 +66,38 @@ const generateWithOllama = async (systemInstruction, contents) => {
 };
 
 /**
- * Process a chat message through the full RAG pipeline with retry logic.
+ * Generate a response using Google Gemini API.
+ * @param {string} systemInstruction
+ * @param {object[]} contents - Gemini-format content turns
+ * @returns {Promise<string>}
+ */
+const generateWithGemini = async (systemInstruction, contents) => {
+  const { GoogleGenerativeAI } = await import('@google/generative-ai');
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+    systemInstruction,
+  });
+
+  // Build history (all turns except the last user message)
+  const history = contents.slice(0, -1).map((turn) => ({
+    role: turn.role,
+    parts: turn.parts,
+  }));
+
+  // The last entry is always the current user message
+  const lastTurn = contents[contents.length - 1];
+  const userMessage = lastTurn?.parts?.map((p) => p.text).join('\n') || '';
+
+  const chat = model.startChat({ history });
+  const result = await chat.sendMessage(userMessage);
+  const text = result.response.text();
+  return text?.trim() || "I'm sorry, I couldn't generate a response.";
+};
+
+/**
+ * Process a chat message through the full RAG pipeline.
+ * Uses Gemini when GEMINI_API_KEY is set (production), Ollama otherwise (local dev).
  * @param {string} message - User's current message
  * @param {{ role: string, content: string }[]} history - Conversation history
  * @returns {Promise<{ answer: string, sources: object[], confidence: number }>}
@@ -79,9 +110,17 @@ export const chat = async (message, history = []) => {
   // 2. Build structured prompt
   const { systemInstruction, contents } = buildPrompt(message, contextChunks, history);
 
-  // 3. Generate response with Ollama
-  logger.rag(`Generating response with Ollama ${getOllamaConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
+  // 3. Generate response — prefer Gemini in production, fallback to Ollama locally
+  if (process.env.GEMINI_API_KEY) {
+    logger.rag(`Generating response with Gemini ${process.env.GEMINI_MODEL || 'gemini-2.0-flash'} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
+    const answer = await generateWithGemini(systemInstruction, contents);
+    const sources = buildCitations(contextChunks);
+    logger.success(`Response generated — ${answer.length} chars`);
+    return { answer, sources, confidence };
+  }
 
+  // Ollama fallback (local dev only)
+  logger.rag(`Generating response with Ollama ${getOllamaConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
   const answer = await generateWithOllama(systemInstruction, contents);
 
   // 4. Build citations for frontend
