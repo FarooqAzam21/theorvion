@@ -28,7 +28,7 @@ const toOpenAIMessages = (systemInstruction, contents) => {
  * Docs: https://console.groq.com/docs/openai
  */
 const generateWithGroq = async (systemInstruction, contents) => {
-  const model = process.env.GROQ_MODEL || 'llama3-8b-8192';
+  const model = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -144,7 +144,7 @@ export const chat = async (message, history = []) => {
 
   if (process.env.GROQ_API_KEY) {
     providers.push({
-      name: `Groq (${process.env.GROQ_MODEL || 'llama3-8b-8192'})`,
+      name: `Groq (${process.env.GROQ_MODEL || 'llama-3.1-8b-instant'})`,
       fn: () => generateWithGroq(systemInstruction, contents),
     });
   }
