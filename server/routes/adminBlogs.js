@@ -8,6 +8,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { Blogs, Categories, Tags } from '../services/db.js';
 import authMiddleware from '../middleware/auth.js';
+import { generateSitemap } from '../utils/sitemap.js';
 
 const router = Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -174,6 +175,9 @@ router.post('/', async (req, res) => {
     const savedPost = await Blogs.insertOne(newPost);
     await syncTaxonomy(newPost.category, newPost.tags);
 
+    // Update sitemap in background
+    generateSitemap();
+
     res.status(201).json({ success: true, post: savedPost });
   } catch (err) {
     console.error('Error creating blog post:', err);
@@ -234,6 +238,10 @@ router.put('/:id', async (req, res) => {
     }
 
     await syncTaxonomy(updates.category, updates.tags);
+
+    // Update sitemap in background
+    generateSitemap();
+
     res.json({ success: true, post: { id, ...existingPost, ...updates } });
   } catch (err) {
     console.error('Error updating blog post:', err);
@@ -249,6 +257,10 @@ router.delete('/:id', async (req, res) => {
     if (!success) {
       return res.status(404).json({ error: 'Blog post not found.' });
     }
+
+    // Update sitemap in background
+    generateSitemap();
+
     res.json({ success: true, message: 'Blog post deleted successfully.' });
   } catch (err) {
     console.error('Error deleting blog:', err);
