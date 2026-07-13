@@ -1,85 +1,10 @@
 // ─────────────────────────────────────────────────────────────
 //  chatService.js  —  Full RAG generation orchestrator
-//  Provider chain: Groq (free) → Gemini → Ollama (local dev)
 // ─────────────────────────────────────────────────────────────
 import { retrieve, calcConfidence } from './retrievalService.js';
 import { buildPrompt, buildCitations } from '../rag/promptBuilder.js';
 import logger from '../utils/logger.js';
 
-// ── Shared helper: convert Gemini-format contents to OpenAI messages ──────────
-// Groq/OpenAI require messages to start with 'user' — strip any leading assistant turns.
-const toOpenAIMessages = (systemInstruction, contents) => {
-  const mapped = contents.map((turn) => ({
-    role: turn.role === 'model' ? 'assistant' : 'user',
-    content: turn.parts?.map((p) => p.text).filter(Boolean).join('\n') || '',
-  }));
-  // Drop leading assistant messages to comply with OpenAI/Groq message ordering
-  const firstUserIdx = mapped.findIndex((m) => m.role === 'user');
-  const trimmed = firstUserIdx > 0 ? mapped.slice(firstUserIdx) : mapped;
-  return [
-    { role: 'system', content: systemInstruction },
-    ...trimmed,
-  ];
-};
-
-// ── Provider: Groq (free tier, OpenAI-compatible) ────────────────────────────
-/**
- * Generate a response via Groq's free API (llama3 family).
- * Docs: https://console.groq.com/docs/openai
- */
-const generateWithGroq = async (systemInstruction, contents) => {
-  const model = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages: toOpenAIMessages(systemInstruction, contents),
-      temperature: 0.3,
-      max_tokens: Number(process.env.GROQ_MAX_TOKENS || 512),
-      top_p: 0.85,
-    }),
-  });
-
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    const errMsg = data.error?.message || `Groq error ${response.status}`;
-    const err = new Error(errMsg);
-    err.status = response.status;
-    throw err;
-  }
-
-  return data.choices?.[0]?.message?.content?.trim() || "I'm sorry, I couldn't generate a response.";
-};
-
-// ── Provider: Google Gemini ───────────────────────────────────────────────────
-const generateWithGemini = async (systemInstruction, contents) => {
-  const { GoogleGenerativeAI } = await import('@google/generative-ai');
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({
-    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
-    systemInstruction,
-  });
-
-  const history = contents.slice(0, -1).map((turn) => ({
-    role: turn.role,
-    parts: turn.parts,
-  }));
-
-  const lastTurn = contents[contents.length - 1];
-  const userMessage = lastTurn?.parts?.map((p) => p.text).join('\n') || '';
-
-  const chatSession = model.startChat({ history });
-  const result = await chatSession.sendMessage(userMessage);
-  const text = result.response.text();
-  return text?.trim() || "I'm sorry, I couldn't generate a response.";
-};
-
-// ── Provider: Ollama (local dev fallback) ────────────────────────────────────
 const getOllamaConfig = () => ({
   host: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
   model: process.env.OLLAMA_MODEL || 'qwen2.5:0.5b',
@@ -87,10 +12,23 @@ const getOllamaConfig = () => ({
   maxTokens: Number(process.env.OLLAMA_MAX_TOKENS || 512),
 });
 
+const withTimeout = (ms) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), ms);
+  return { controller, timeout };
+};
+
+const toOllamaMessages = (systemInstruction, contents) => [
+  { role: 'system', content: systemInstruction },
+  ...contents.map((turn) => ({
+    role: turn.role === 'model' ? 'assistant' : 'user',
+    content: turn.parts?.map((part) => part.text).filter(Boolean).join('\n') || '',
+  })),
+];
+
 const generateWithOllama = async (systemInstruction, contents) => {
   const { host, model, timeoutMs, maxTokens } = getOllamaConfig();
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const { controller, timeout } = withTimeout(timeoutMs);
 
   try {
     const response = await fetch(`${host.replace(/\/$/, '')}/api/chat`, {
@@ -98,37 +36,39 @@ const generateWithOllama = async (systemInstruction, contents) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model,
-        messages: toOpenAIMessages(systemInstruction, contents),
+        messages: toOllamaMessages(systemInstruction, contents),
         stream: false,
-        options: { temperature: 0.3, top_p: 0.85, num_predict: maxTokens, num_thread: 4 },
+        options: {
+          temperature: 0.3,
+          top_p: 0.85,
+          num_predict: maxTokens,
+          num_thread: 4,
+        },
       }),
       signal: controller.signal,
     });
 
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || `Ollama error ${response.status}`);
+
+    if (!response.ok) {
+      throw new Error(data.error || `Ollama request failed with status ${response.status}`);
+    }
+
     return data.message?.content?.trim() || data.response?.trim() || "I'm sorry, I couldn't generate a response.";
   } catch (err) {
-    if (err.name === 'AbortError') throw new Error(`Ollama timed out after ${timeoutMs}ms.`);
+    if (err.name === 'AbortError') {
+      throw new Error(`Ollama request timed out after ${timeoutMs}ms.`);
+    }
     throw err;
   } finally {
     clearTimeout(timeout);
   }
 };
 
-// ── Main chat function with provider waterfall ────────────────────────────────
 /**
- * Process a chat message through the full RAG pipeline.
- *
- * Provider priority:
- *   1. Groq  (GROQ_API_KEY set)   — free, fast, generous limits
- *   2. Gemini (GEMINI_API_KEY set) — fallback if Groq fails / not configured
- *   3. Ollama (local dev)          — last resort
- *
- * 429 quota errors auto-cascade to the next provider.
- *
- * @param {string} message
- * @param {object[]} history
+ * Process a chat message through the full RAG pipeline with retry logic.
+ * @param {string} message - User's current message
+ * @param {{ role: string, content: string }[]} history - Conversation history
  * @returns {Promise<{ answer: string, sources: object[], confidence: number }>}
  */
 export const chat = async (message, history = []) => {
@@ -139,58 +79,15 @@ export const chat = async (message, history = []) => {
   // 2. Build structured prompt
   const { systemInstruction, contents } = buildPrompt(message, contextChunks, history);
 
-  // 3. Provider waterfall
-  const providers = [];
+  // 3. Generate response with Ollama
+  logger.rag(`Generating response with Ollama ${getOllamaConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
 
-  if (process.env.GROQ_API_KEY) {
-    providers.push({
-      name: `Groq (${process.env.GROQ_MODEL || 'llama-3.1-8b-instant'})`,
-      fn: () => generateWithGroq(systemInstruction, contents),
-    });
-  }
+  const answer = await generateWithOllama(systemInstruction, contents);
 
-  if (process.env.GEMINI_API_KEY) {
-    providers.push({
-      name: `Gemini (${process.env.GEMINI_MODEL || 'gemini-2.0-flash'})`,
-      fn: () => generateWithGemini(systemInstruction, contents),
-    });
-  }
+  // 4. Build citations for frontend
+  const sources = buildCitations(contextChunks);
 
-  // Always include Ollama as a last resort for local dev
-  providers.push({
-    name: `Ollama (${getOllamaConfig().model})`,
-    fn: () => generateWithOllama(systemInstruction, contents),
-  });
+  logger.success(`Response generated — ${answer.length} chars`);
 
-  let lastError;
-  for (const provider of providers) {
-    try {
-      logger.rag(`Generating response with ${provider.name} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
-      const answer = await provider.fn();
-      const sources = buildCitations(contextChunks);
-      logger.success(`Response generated via ${provider.name} — ${answer.length} chars`);
-      return { answer, sources, confidence };
-    } catch (err) {
-      lastError = err;
-      // Always log the full error so it's visible in Render logs
-      logger.warn(`${provider.name} failed: [${err.status || 'ERR'}] ${err.message}`);
-
-      // Cascade to next provider on ANY API-level error
-      // (quota, rate limit, bad request, auth, connectivity)
-      const isApiError = err.status >= 400 || err.message?.includes('429') ||
-        err.message?.includes('quota') || err.message?.includes('rate') ||
-        err.message?.includes('fetch failed') || err.message?.includes('ECONNREFUSED') ||
-        err.message?.includes('timed out') || err.message?.includes('GoogleGenerativeAI');
-
-      if (isApiError) {
-        logger.warn(`Cascading to next provider...`);
-        continue;
-      }
-      // Unexpected non-API error — bubble up
-      throw err;
-    }
-  }
-
-  // All providers failed
-  throw lastError || new Error('All AI providers are currently unavailable.');
+  return { answer, sources, confidence };
 };
