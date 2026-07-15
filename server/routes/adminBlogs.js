@@ -4,32 +4,25 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
+import { randomUUID } from 'crypto';
+import { createClient } from '@supabase/supabase-js';
 import { Blogs, Categories, Tags } from '../services/db.js';
 import authMiddleware from '../middleware/auth.js';
 import { generateSitemap } from '../utils/sitemap.js';
 
 const router = Router();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const UPLOAD_DIR = path.resolve(__dirname, '../data/uploads');
+const SUPABASE_BUCKET = process.env.SUPABASE_BLOG_BUCKET || 'blog-images';
 
-// Ensure upload directory exists
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-}
+// Environment variables load after ES module imports, so construct the client per request.
+const getSupabaseClient = () => {
+  const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return null;
+  return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+};
 
 // ── Multer Storage Config ─────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, UPLOAD_DIR);
-  },
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const uniqueName = `upload-${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-    cb(null, uniqueName);
-  }
-});
 
 const fileFilter = (_req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|webp|gif/;
@@ -41,7 +34,7 @@ const fileFilter = (_req, file, cb) => {
 };
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   fileFilter,
   limits: { fileSize: 5 * 1024 * 1024 } // 5MB max
 });
@@ -269,16 +262,43 @@ router.delete('/:id', async (req, res) => {
 });
 
 // ── POST /api/admin/upload — Featured Image Upload API ─────────
-router.post('/upload', upload.single('image'), (req, res) => {
+router.post('/upload', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No image file uploaded.' });
     }
 
-    // Return the relative URL served by static middleware
-    const fileUrl = `/uploads/${req.file.filename}`;
-    res.json({ success: true, url: fileUrl });
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return res.status(503).json({ error: 'Image storage is not configured. Set the Supabase server environment variables.' });
+    }
+
+    const extByMimeType = {
+      'image/jpeg': '.jpg',
+      'image/png': '.png',
+      'image/webp': '.webp',
+      'image/gif': '.gif',
+    };
+    const extension = extByMimeType[req.file.mimetype] || path.extname(req.file.originalname).toLowerCase();
+    const objectPath = `featured/${Date.now()}-${randomUUID()}${extension}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(SUPABASE_BUCKET)
+      .upload(objectPath, req.file.buffer, {
+        contentType: req.file.mimetype,
+        cacheControl: '31536000',
+        upsert: false,
+      });
+
+    if (uploadError) {
+      console.error('Supabase image upload failed:', uploadError.message);
+      return res.status(502).json({ error: 'Image upload to permanent storage failed.' });
+    }
+
+    const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(objectPath);
+    res.status(201).json({ success: true, url: data.publicUrl });
   } catch (err) {
+    console.error('Featured image upload failed:', err);
     res.status(500).json({ error: err.message || 'File upload failed.' });
   }
 });
