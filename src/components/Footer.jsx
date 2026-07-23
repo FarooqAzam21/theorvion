@@ -30,7 +30,7 @@ const socialLinks = [
   "https://x.com/TheOrvion",
   "https://facebook.com/share/1DZYf1AYrt",
   "https://linkedin.com/company/the-orvion",
-  "https://https://www.instagram.com/the_orvion",
+  "https://www.instagram.com/the_orvion?igsh=YTN4Y3F4dW0zaDc2",
 ];
 const Footer = () => {
   const scrollToTop = () => {
