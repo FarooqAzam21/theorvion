@@ -5,12 +5,12 @@ const REQUEST_TIMEOUT_MS = Number(process.env.CYBERGUARD_TIMEOUT_MS || 5000);
 const MAX_RECENT_RESULTS = 50;
 const recentResults = [];
 
-const recordResult = ({ type, status, outcome }) => {
-  recentResults.unshift({ type, status, outcome, at: new Date().toISOString() });
+const recordResult = ({ type, status, outcome, score, verdict }) => {
+  recentResults.unshift({ type, status, outcome, score, verdict, at: new Date().toISOString() });
   recentResults.splice(MAX_RECENT_RESULTS);
 };
 
-const resultSummary = (type, status, outcome) => ({ type, status, outcome });
+const resultSummary = (type, status, outcome, score) => ({ type, status, outcome, ...(score !== undefined ? { score } : {}) });
 
 export const sendCyberGuardEvent = async (type, data) => {
   const apiKey = process.env.CYBERGUARD_API_KEY;
@@ -30,7 +30,7 @@ export const sendCyberGuardEvent = async (type, data) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
+        'X-API-KEY': apiKey,
       },
       body: JSON.stringify({ type, data }),
       signal: controller.signal,
@@ -38,9 +38,20 @@ export const sendCyberGuardEvent = async (type, data) => {
 
     const status = response.status;
     const outcome = response.ok ? 'success' : 'rejected';
-    recordResult({ type, status, outcome });
-    logger.info(`CyberGuard result: ${status}`, resultSummary(type, status, outcome));
-    return { ok: response.ok, status };
+    let result = {};
+    try {
+      result = await response.json();
+    } catch {
+      // A status is still sufficient if the upstream response has no JSON body.
+    }
+
+    const score = result?.agent_verdict?.score;
+    const verdict = typeof result?.agent_verdict?.verdict === 'string'
+      ? result.agent_verdict.verdict
+      : undefined;
+    recordResult({ type, status, outcome, score, verdict });
+    logger.info(`CyberGuard result: ${status}`, resultSummary(type, status, outcome, score));
+    return { ok: response.ok, status, score, verdict };
   } catch (error) {
     const status = error.name === 'AbortError' ? 'timeout' : 'unavailable';
     recordResult({ type, status, outcome: 'failed' });

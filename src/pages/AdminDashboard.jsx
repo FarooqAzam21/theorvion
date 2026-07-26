@@ -379,7 +379,7 @@ const AdminDashboard = () => {
             <div className="flex flex-wrap gap-2">
               {monitoringResults.slice(0, 8).map((result, index) => (
                 <span key={`${result.at}-${index}`} className="rounded-lg border border-violet-500/15 bg-violet-500/5 px-2.5 py-1 text-xs text-[#c4b5fd]/80">
-                  {result.type}: {result.outcome} ({result.status})
+                  {result.type}: {result.outcome} ({result.status}){result.score !== undefined ? ` · risk ${result.score}` : ''}
                 </span>
               ))}
             </div>
