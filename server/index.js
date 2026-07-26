@@ -16,8 +16,11 @@ import contentRoute from './routes/content.js';
 import authRoute from './routes/auth.js';
 import blogsRoute from './routes/blogs.js';
 import adminBlogsRoute from './routes/adminBlogs.js';
+import contactRoute from './routes/contact.js';
+import adminMonitoringRoute from './routes/adminMonitoring.js';
 import { connectDB } from './services/db.js';
 import logger from './utils/logger.js';
+import { cyberGuardRequestMonitor } from './middleware/cyberguard.js';
 
 // Load .env from the same directory as this file
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -60,6 +63,7 @@ app.use(cors({
 // ── Body Parsing ──────────────────────────────────────────────
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: false }));
+app.use(cyberGuardRequestMonitor);
 
 // ── Request Logger ────────────────────────────────────────────
 app.use((req, _res, next) => {
@@ -87,6 +91,8 @@ app.use('/api/content', contentRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/blogs', blogsRoute);
 app.use('/api/admin/blogs', adminBlogsRoute);
+app.use('/api/admin/monitoring', adminMonitoringRoute);
+app.use('/api/contact', contactRoute);
 app.use('/uploads', express.static(path.join(__dirname, 'data/uploads')));
 
 // ── 404 ───────────────────────────────────────────────────────

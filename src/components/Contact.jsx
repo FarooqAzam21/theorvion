@@ -1,7 +1,36 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Sparkles } from 'lucide-react';
 
 const Contact = () => {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
+
+  const submitContact = async (event) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setFormStatus({ type: '', message: '' });
+
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${apiBase}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
+
+      setForm({ name: '', email: '', subject: '', message: '' });
+      setFormStatus({ type: 'success', message: 'Thanks — your message has been received.' });
+    } catch (error) {
+      setFormStatus({ type: 'error', message: error.message || 'Unable to send your message.' });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="relative py-28 sm:py-36 px-5 sm:px-8 bg-void overflow-hidden">
       {/* Background Glow */}
@@ -65,25 +94,29 @@ const Contact = () => {
                <Sparkles className="w-6 h-6 text-white" />
             </div>
 
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={submitContact}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="form-group">
-                  <input type="text" id="name" placeholder=" " required />
+                  <input type="text" id="name" placeholder=" " required value={form.name}
+                    onChange={(event) => setForm({ ...form, name: event.target.value })} />
                   <label htmlFor="name">Full Name</label>
                 </div>
                 <div className="form-group">
-                  <input type="email" id="email" placeholder=" " required />
+                  <input type="email" id="email" placeholder=" " required value={form.email}
+                    onChange={(event) => setForm({ ...form, email: event.target.value })} />
                   <label htmlFor="email">Email Address</label>
                 </div>
               </div>
               
               <div className="form-group">
-                <input type="text" id="subject" placeholder=" " required />
+                <input type="text" id="subject" placeholder=" " required value={form.subject}
+                  onChange={(event) => setForm({ ...form, subject: event.target.value })} />
                 <label htmlFor="subject">Subject</label>
               </div>
               
               <div className="form-group">
-                <textarea id="message" rows={5} placeholder=" " required></textarea>
+                <textarea id="message" rows={5} placeholder=" " required value={form.message}
+                  onChange={(event) => setForm({ ...form, message: event.target.value })}></textarea>
                 <label htmlFor="message">Project Details</label>
               </div>
               
@@ -92,10 +125,15 @@ const Contact = () => {
                  <label htmlFor="consent">I agree to the privacy policy and data processing.</label>
               </div>
 
-              <button type="submit" className="btn-primary w-full justify-center py-4 text-base">
-                Start Your Project
+              <button type="submit" disabled={submitting} className="btn-primary w-full justify-center py-4 text-base disabled:opacity-60">
+                {submitting ? 'Sending...' : 'Start Your Project'}
                 <Send className="w-4 h-4" />
               </button>
+              {formStatus.message && (
+                <p className={`text-sm text-center ${formStatus.type === 'success' ? 'text-emerald-300' : 'text-red-300'}`}>
+                  {formStatus.message}
+                </p>
+              )}
             </form>
           </motion.div>
           

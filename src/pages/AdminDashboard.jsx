@@ -6,7 +6,7 @@ import {
   LayoutDashboard, PenSquare, Trash2, Search, LogOut, Plus,
   Eye, EyeOff, Globe, FileText, Image, Tag, User, Calendar,
   CheckCircle2, XCircle, ChevronDown, X, AlertTriangle, Loader2,
-  Filter, BookOpen, TrendingUp, Clock
+  Filter, BookOpen, TrendingUp, Clock, ShieldCheck
 } from 'lucide-react';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -86,6 +86,7 @@ const AdminDashboard = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [loadingList, setLoadingList] = useState(true);
   const [listError, setListError] = useState(null);
+  const [monitoringResults, setMonitoringResults] = useState([]);
 
   // Editor state
   const [view, setView] = useState('list'); // 'list' | 'editor'
@@ -134,6 +135,20 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   useEffect(() => { fetchBlogs(); }, [fetchBlogs]);
+
+  const fetchMonitoring = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/monitoring`, { headers: authHeaders() });
+      if (response.ok) {
+        const data = await response.json();
+        setMonitoringResults(data.results || []);
+      }
+    } catch {
+      // Monitoring visibility is optional; dashboard access remains available.
+    }
+  }, []);
+
+  useEffect(() => { fetchMonitoring(); }, [fetchMonitoring]);
 
   // ── Filter Blogs ──────────────────────────────────────────
   useEffect(() => {
@@ -348,6 +363,28 @@ const AdminDashboard = () => {
             </div>
           ))}
         </div>
+
+        <section className="glass-card rounded-2xl p-5 border border-violet-500/15 mb-8" aria-label="CyberGuard monitoring">
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-violet-400" />
+              <div>
+                <h2 className="font-semibold text-white text-sm">CyberGuard monitoring</h2>
+                <p className="text-xs text-[#c4b5fd]/60">Recent server-side monitoring outcomes</p>
+              </div>
+            </div>
+            <button onClick={fetchMonitoring} className="text-xs text-violet-300 hover:text-white transition-colors">Refresh</button>
+          </div>
+          {monitoringResults.length ? (
+            <div className="flex flex-wrap gap-2">
+              {monitoringResults.slice(0, 8).map((result, index) => (
+                <span key={`${result.at}-${index}`} className="rounded-lg border border-violet-500/15 bg-violet-500/5 px-2.5 py-1 text-xs text-[#c4b5fd]/80">
+                  {result.type}: {result.outcome} ({result.status})
+                </span>
+              ))}
+            </div>
+          ) : <p className="text-xs text-[#c4b5fd]/50">No monitoring results recorded in this server session.</p>}
+        </section>
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
