@@ -3,6 +3,7 @@ import logger from '../utils/logger.js';
 const DEFAULT_API_URL = 'https://cyberguard-ai-nq8k.onrender.com/api/v1/agent/analyze';
 const REQUEST_TIMEOUT_MS = Number(process.env.CYBERGUARD_TIMEOUT_MS || 5000);
 const MAX_RECENT_RESULTS = 50;
+const SUPPORTED_SCAN_TYPES = new Set(['url', 'email', 'web', 'network']);
 const recentResults = [];
 
 const recordResult = ({ type, status, outcome, score, verdict }) => {
@@ -15,6 +16,11 @@ const resultSummary = (type, status, outcome, score) => ({ type, status, outcome
 export const sendCyberGuardEvent = async (type, data) => {
   const apiKey = process.env.CYBERGUARD_API_KEY;
   const apiUrl = process.env.CYBERGUARD_API_URL || DEFAULT_API_URL;
+
+  if (!SUPPORTED_SCAN_TYPES.has(type)) {
+    logger.warn('CyberGuard result: unsupported scan type', { type });
+    return { ok: false, status: 'invalid_type' };
+  }
 
   if (!apiKey) {
     recordResult({ type, status: 'not_configured', outcome: 'skipped' });
@@ -30,7 +36,7 @@ export const sendCyberGuardEvent = async (type, data) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': apiKey,
+        'X-API-Key': apiKey,
       },
       body: JSON.stringify({ type, data }),
       signal: controller.signal,
@@ -46,17 +52,32 @@ export const sendCyberGuardEvent = async (type, data) => {
     }
 
     const score = result?.agent_verdict?.score;
+    // CyberGuard currently returns a label (for example, SAFE). Keep support
+    // for a `verdict` field as well so response-format changes do not discard
+    // the monitoring value.
     const verdict = typeof result?.agent_verdict?.verdict === 'string'
       ? result.agent_verdict.verdict
-      : undefined;
+      : typeof result?.agent_verdict?.label === 'string'
+        ? result.agent_verdict.label
+        : undefined;
     recordResult({ type, status, outcome, score, verdict });
-    logger.info(`CyberGuard result: ${status}`, resultSummary(type, status, outcome, score));
-    return { ok: response.ok, status, score, verdict };
+    const summary = resultSummary(type, status, outcome, score);
+
+    if (!response.ok) {
+      logger.warn(`CyberGuard rejected request: ${status}`, summary);
+      return { ok: false, status, score, verdict, error: 'upstream_rejected' };
+    }
+
+    logger.info(`CyberGuard result: ${status}`, summary);
+    return { ok: true, status, score, verdict };
   } catch (error) {
     const status = error.name === 'AbortError' ? 'timeout' : 'unavailable';
     recordResult({ type, status, outcome: 'failed' });
-    logger.warn(`CyberGuard result: ${status}`, resultSummary(type, status, 'failed'));
-    return { ok: false, status };
+    logger.warn(`CyberGuard request ${status}`, {
+      ...resultSummary(type, status, 'failed'),
+      error: error.message,
+    });
+    return { ok: false, status, error: status };
   } finally {
     clearTimeout(timeout);
   }

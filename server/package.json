@@ -5,11 +5,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node --use-system-ca index.js",
+    "dev": "nodemon --exec \"node --use-system-ca\" index.js",
     "build": "echo: 'no build needed for backend'",
     "ingest": "node scripts/ingest.js",
-    "test:ollama": "node scripts/test-ollama.js"
+    "test:ollama": "node scripts/test-ollama.js",
+    "test:cyberguard": "node --use-system-ca scripts/test-cyberguard.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -26,6 +27,6 @@
     "uuid": "^11.0.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   }
 }
