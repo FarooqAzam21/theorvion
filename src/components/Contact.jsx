@@ -61,7 +61,7 @@ const Contact = () => {
             
             <div className="space-y-8">
               {[
-                { icon: Mail, label: 'Email Us', value: 'hello@theorvion.com', sub: 'For general inquiries' },
+                { icon: Mail, label: 'Email Us', value: 'hello@theorvion.io', sub: 'For general inquiries' },
                 { icon: Phone, label: 'Call Us', value: '+92 336 0196844', sub: 'Mon-Fri, 9am-6pm EST' },
                 /*{ icon: MapPin, label: 'Visit Us', value: '123 Innovation Way, Tech City, CA', sub: 'Our global headquarters' }*/,
               ].map((item) => {
