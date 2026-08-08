@@ -80,14 +80,18 @@ const SeoSchema = () => {
   };
 
   return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(organizationSchema)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(localBusinessSchema)}
-      </script>
-    </Helmet>
+    <Helmet
+      script={[
+        {
+          type: "application/ld+json",
+          innerHTML: JSON.stringify(organizationSchema)
+        },
+        {
+          type: "application/ld+json",
+          innerHTML: JSON.stringify(localBusinessSchema)
+        }
+      ]}
+    />
   );
 };
 
