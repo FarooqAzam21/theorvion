@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CustomCursor from './components/CustomCursor';
 import ChatWidget from './components/chat/ChatWidget';
 import './index.css';
-
+import SeoSchema from './components/SeoSchema'
 // Lazy load page components
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -32,6 +32,7 @@ function App() {
       <div className="relative">
         <CustomCursor />
         <ChatWidget />
+        <SeoSchema />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
