@@ -336,9 +336,9 @@ const Contact = () => (
           accent="exceptional"
           description="Share your idea, product, workflow, or website goal. We will help shape the next step."
         />
-        <a href="mailto:hello@theorvion.com" className="mt-8 inline-flex items-center gap-3 text-violet-300 hover:text-white transition-colors">
+        <a href="mailto:hello@theorvion.io" className="mt-8 inline-flex items-center gap-3 text-violet-300 hover:text-white transition-colors">
           <Mail className="h-5 w-5" />
-          hello@theorvion.com
+          hello@theorvion.io
         </a>
       </div>
 

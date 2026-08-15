@@ -98,7 +98,7 @@ export const useChat = () => {
       const errorMsg = {
         id: uuidv4(),
         role: 'assistant',
-        content: `I'm sorry, I encountered an issue: *${err.message}*\n\nPlease try again or contact us at **hello@theorvion.com**.`,
+        content: `I'm sorry, I encountered an issue: *${err.message}*\n\nPlease try again or contact us at **hello@theorvion.io**.`,
         sources: [],
         confidence: 0,
         timestamp: new Date().toISOString(),
