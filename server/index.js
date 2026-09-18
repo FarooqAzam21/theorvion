@@ -113,7 +113,9 @@ const start = async () => {
   // Initialize Database
   await connectDB();
 
-  const provider = process.env.GEMINI_API_KEY ? 'Google Gemini (Fast Mode)' : `Ollama (${process.env.OLLAMA_MODEL || 'qwen2.5:0.5b'})`;
+  const provider = process.env.GEMINI_API_KEY
+    ? `Google Gemini (${process.env.GEMINI_MODEL || 'gemini-2.5-flash'}, Ollama fallback)`
+    : `Ollama (${process.env.OLLAMA_MODEL || 'qwen2.5:1.5b'})`;
   logger.info(`Active AI Provider: ${provider}`);
 
   // Load persisted vector store

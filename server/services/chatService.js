@@ -4,12 +4,17 @@
 import { retrieve, calcConfidence } from './retrievalService.js';
 import { buildPrompt, buildCitations } from '../rag/promptBuilder.js';
 import logger from '../utils/logger.js';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const getOllamaConfig = () => ({
   host: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
-  model: process.env.OLLAMA_MODEL || 'qwen2.5:0.5b',
+  model: process.env.OLLAMA_MODEL || 'qwen2.5:1.5b',
   timeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS || 60000),
   maxTokens: Number(process.env.OLLAMA_MAX_TOKENS || 512),
+});
+
+const getGeminiConfig = () => ({
+  model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
 });
 
 const withTimeout = (ms) => {
@@ -25,6 +30,16 @@ const toOllamaMessages = (systemInstruction, contents) => [
     content: turn.parts?.map((part) => part.text).filter(Boolean).join('\n') || '',
   })),
 ];
+
+const generateWithGemini = async (systemInstruction, contents) => {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: getGeminiConfig().model,
+    systemInstruction,
+  });
+  const result = await model.generateContent({ contents });
+  return result.response.text().trim();
+};
 
 const generateWithOllama = async (systemInstruction, contents) => {
   const { host, model, timeoutMs, maxTokens } = getOllamaConfig();
@@ -79,10 +94,21 @@ export const chat = async (message, history = []) => {
   // 2. Build structured prompt
   const { systemInstruction, contents } = buildPrompt(message, contextChunks, history);
 
-  // 3. Generate response with Ollama
-  logger.rag(`Generating response with Ollama ${getOllamaConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
+  // 3. Prefer Gemini when configured, then fall back to local Ollama.
+  let answer;
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      logger.rag(`Generating response with Gemini ${getGeminiConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
+      answer = await generateWithGemini(systemInstruction, contents);
+    } catch (err) {
+      logger.warn(`Gemini generation failed; falling back to Ollama. ${err.message}`);
+    }
+  }
 
-  const answer = await generateWithOllama(systemInstruction, contents);
+  if (!answer) {
+    logger.rag(`Generating response with Ollama ${getOllamaConfig().model} (confidence: ${confidence}%, chunks: ${contextChunks.length})`);
+    answer = await generateWithOllama(systemInstruction, contents);
+  }
 
   // 4. Build citations for frontend
   const sources = buildCitations(contextChunks);
