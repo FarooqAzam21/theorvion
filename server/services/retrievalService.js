@@ -1,9 +1,24 @@
 // ─────────────────────────────────────────────────────────────
 //  retrievalService.js  —  Semantic search & context ranking
 // ─────────────────────────────────────────────────────────────
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { embedText } from './embeddingService.js';
 import { keywordSearch, search } from './vectorStore.js';
+import { processDocument } from '../rag/chunker.js';
 import logger from '../utils/logger.js';
+
+const SERVICES_KNOWLEDGE_PATH = new URL('../data/knowledge/services.json', import.meta.url);
+
+const loadServiceKnowledge = () => {
+  const document = JSON.parse(readFileSync(fileURLToPath(SERVICES_KNOWLEDGE_PATH), 'utf8'));
+  return processDocument(document);
+};
+
+const isServiceOverviewQuery = (query) => (
+  /\b(?:what|which|list|tell me about|describe)\b.*\bservices?\b|\bservices?\b.*\b(?:offer|provide|include|available|overview)\b|\bwhat do you offer\b|\bwhat (?:do you|does (?:the )?orvion) do\b|\bwhat can (?:the )?orvion do\b/i
+    .test(query)
+);
 
 /**
  * Retrieve the most relevant context chunks for a query.
@@ -14,6 +29,15 @@ import logger from '../utils/logger.js';
  */
 export const retrieve = async (query, topK = 5, minScore = 0.40) => {
   logger.rag(`Retrieving context for: "${query.slice(0, 60)}..."`);
+
+  if (isServiceOverviewQuery(query)) {
+    const services = loadServiceKnowledge().map((doc) => ({
+      ...doc,
+      score: 1,
+    }));
+    logger.rag(`Retrieved complete services knowledge (${services.length} chunks)`);
+    return services;
+  }
 
   let results = [];
   const retrievalMode = process.env.RAG_RETRIEVAL_MODE || 'keyword';
